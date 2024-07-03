@@ -1,0 +1,8 @@
+.center {
+margin: auto;
+}
+canvas {
+border: 1px solid #000000;
+height: 500px;
+width: 1000px;
+}
