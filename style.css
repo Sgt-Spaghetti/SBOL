@@ -1,8 +1,13 @@
 .center {
 margin: auto;
 }
-canvas {
+.container{
+height: 300px;
+width: 100%;
+overflow: scroll;
 border: 1px solid #000000;
-height: 500px;
-width: 1000px;
 }
+canvas {
+height: 300px;
+}
+.content{display: none;}

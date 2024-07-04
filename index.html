@@ -11,20 +11,28 @@
 		<h1>Create simple genetic diagrams!</h1>
 		<h2>By Leonardo Cherin, UCL</h2>
 
-		<div>
+			<button type="button" class="collapsible">Available glyphs</button>
+		<div class="content">
+
 		<button type="button" onclick="add_part('Glyphs/promoter.svg')">
-			<img src="Glyphs/promoter.svg"></img>
+			<img src="Glyphs/promoter.svg">
 			</button>
-		<button type="button" onclick="add_part('Glyphs/promoter.svg')">2</button>
-		<button>3</button>
+		<button type="button" onclick="add_part('Glyphs/cds.svg')"><img src="Glyphs/cds.svg"></button>	
+		<button type="button" onclick="add_part('Glyphs/terminator.svg')"><img src="Glyphs/terminator.svg"></button>
 		<button>4</button>
 		</div>
 
-		<div class="center">
-		<canvas id="main_canvas"></canvas>
+		<div id = "canvas_container" class="container">
+		<canvas id="main_canvas">Your browser does not support the Canvas functionality</canvas>
 		</div>
 
+
+		<button type="button" onclick="delete_part()">Delete</button>
+<!--
+		<a id="download">
 		<button type="button" onclick="Download_Image()">Download</button>
+		</a>
+//-->
 		<script src="script.js"></script>
 
 	</body>
