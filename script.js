@@ -3,10 +3,31 @@ var ctx = c.getContext("2d");
 c.style.height = c.clientHeight;
 c.style.width= c.clientWidth;
 
-function text(){
-var img = new Image();
-img.src = "Glyphs/aptamer.svg";
-ctx.drawImage(img,50,50);
+class Node {
+	constructor (prev, next, img){
+	this.next=next;
+	this.previous=prev;
+	this.image=img;
+}
+	draw(){
+		ctx.drawImage(this.image, 50,50);
+		}
+}
+
+
+function add_part(path){
+	console.log(path);
+	var img = new Image();
+	img.src = path;
+	var node = new Node(null,null, img);
+	node.draw();
+	//ctx.drawImage(img, 50,50);
+}
+function test2(path){
+	var img = new Image();
+	img.src = path;
+	var node = new Node(null,null, img);
+	ctx.drawImage(img, 50,50);
 }
 /*
 ctx.moveTo(0, 0);
