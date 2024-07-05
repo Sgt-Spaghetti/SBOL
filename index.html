@@ -13,13 +13,6 @@
 
 			<button type="button" class="collapsible">Available glyphs</button>
 		<div class="content">
-
-		<button type="button" onclick="add_part('Glyphs/promoter.svg')">
-			<img src="Glyphs/promoter.svg">
-			</button>
-		<button type="button" onclick="add_part('Glyphs/cds.svg')"><img src="Glyphs/cds.svg"></button>	
-		<button type="button" onclick="add_part('Glyphs/terminator.svg')"><img src="Glyphs/terminator.svg"></button>
-		<button>4</button>
 		</div>
 
 		<div id = "canvas_container" class="container">
@@ -28,6 +21,8 @@
 
 
 		<button type="button" onclick="delete_part()">Delete</button>
+		<form><input type="text" id="desc" name="desc", value="Description..."></form>
+		<button type="button" onclick="add_text()">Add Text</button>
 <!--
 		<a id="download">
 		<button type="button" onclick="Download_Image()">Download</button>

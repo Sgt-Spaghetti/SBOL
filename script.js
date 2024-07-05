@@ -1,23 +1,39 @@
 var c = document.getElementById("main_canvas"); // This is the main canvas
 var ctx = c.getContext("2d"); // This is the canvas context, to interact with it
+ctx.scale(2,2);
 var current_node =  null; // initialise the linked list
 //console.log(c.clientHeight); // set the canvas to match the CSS style!
 c.height = c.clientHeight;
-c.width= c.clientWidth;
+
+// Create a button for every glyph in the system
+var files = ['aptamer.svg', 'assembly-scar.svg', 'association.svg', 'blunt-restriction-site.svg', 'cds-arrow.svg', 'cds.svg', 'cds_blue.svg', 'cds_green.svg', 'cds_pink.svg', 'cds_red.svg', 'cds_yellow.svg', 'chromosomal-locus.svg', 'circular-plasmid.svg', 'complex-sbgn.svg', 'composite.svg', 'control.svg', 'degradation.svg', 'dissociation.svg', 'dna-stability-element.svg', 'dsNA.svg', 'engineered-region.svg', 'five-prime-overhang.svg', 'five-prime-sticky-restriction-site.svg', 'generic-sbgn.svg', 'halfround-rectangle.svg', 'inert-dna-spacer.svg', 'inhibition.svg', 'insulator.svg', 'intron.svg', 'location-dna-no-top.svg', 'location-dna.svg', 'location-protein-no-top.svg', 'location-protein.svg', 'location-rna-no-top.svg', 'location-rna.svg', 'macromolecule.svg', 'na-sbgn.svg', 'ncrna.svg', 'no-glyph-assigned.svg', 'nuclease-site.svg', 'omitted-detail.svg', 'operator.svg', 'origin-of-replication.svg', 'origin-of-transfer.svg', 'polyA.svg', 'polypeptide-region.svg', 'primer-binding-site.svg', 'process.svg', 'promoter.svg', 'protease-site.svg', 'protein-stability-element.svg', 'protein.svg', 'replacement-glyph.svg', 'ribonuclease-site.svg', 'ribosome-entry-site.svg', 'rna-stability-element.svg', 'signature.svg', 'simple-chemical-circle.svg', 'simple-chemical-hexagon.svg', 'simple-chemical-pentagon.svg', 'simple-chemical-triangle.svg', 'specific-recombination-site.svg', 'ssNA.svg', 'stimulation.svg', 'terminator.svg', 'three-prime-overhang.svg', 'three-prime-sticky-restriction-site.svg', 'transcription-end.svg', 'translation-end.svg', 'unspecified-glyph.svg'];
+
+for (file in files){
+	var btn = document.createElement("button");
+	btn.type = "button";
+	btn.innerHTML = "<img src= 'Glyphs/"+files[file]+"'>";
+	btn.setAttribute("onclick","add_part('Symbols/"+files[file]+"')");
+document.getElementsByClassName("content")[0].appendChild(btn);
+}
 
 class Node { // Linked list implementation
-	constructor (prev, next, img){
+	constructor (prev, next, img, text){
 	this.next=next;
 	this.previous=prev;
 	this.image=img;
+	this.text = text;
 }
 	draw(posx){ // Draw the symbol on the line in the middle of the canvas, in a chain
-		ctx.drawImage(this.image, posx,c.height/2-this.image.height/2);
+		ctx.drawImage(this.image, posx+10,c.height/2-this.image.height/2);
+		if (this.text != null){
+			ctx.fillText(this.text, posx+this.image.width/2, c.height/2+30)
+		}
 		}
 }
 
+
+
 function update_display(){ // clear and refresh the display, cycles through the linked list
-	ctx.clearRect(0, 0, c.width, c.height);
 	i = 0; // used to offset images based on their position in the list
 	if (current_node != null){
 		var active_node = current_node;
@@ -26,26 +42,26 @@ function update_display(){ // clear and refresh the display, cycles through the 
 		}
 		while (active_node.next != null){
 			active_node.draw(active_node.image.width*i);
-			console.log(active_node.image.width*i)
 			active_node = active_node.next;
 			i++;
 		}
 		if (active_node.next==null){
 			current_node.draw(active_node.image.width*i);
+			i++;
 		}
-		if (current_node.image.width*i > c.width){
-			c.width = current_node.image.width*i;
-			c.clientWidth = current_node.image.width*i;
-			update_display();
+		if (current_node.image.width*i+10 > c.width){
+			c.width = current_node.image.width*i+10;
+			c.clientWidth = current_node.image.width*i+10;
+			update_display()
+			}
 		}
 	}
-}
 
 function add_part(path){ // add a symbol to the linked list of parts
 	//console.log(path);
 	var img = new Image(); // create an image object
 	img.src = path; // add its source (each button is unique)
-	var node = new Node(null,null, img); // add it to the linked list
+	var node = new Node(null,null, img, null); // add it to the linked list
 	if (current_node != null){
 		node.previous = current_node;
 		current_node.next = node;
@@ -54,6 +70,7 @@ function add_part(path){ // add a symbol to the linked list of parts
 	else{
 		current_node = node;
 	}
+	ctx.clearRect(0, 0, c.width, c.height);
 	update_display();
 	//ctx.drawImage(img, 50,50);
 }
@@ -63,15 +80,25 @@ function delete_part(){ // delete a symbol, from the end (right)
 		if (current_node.previous != null){
 			current_node = current_node.previous;
 			current_node.next = null;
-			if (current_node.image.width*i > document.getElementById("canvas_container").getBoundingClientRect().width-current_node.image.width){ // resize the canvas
-				c.width = current_node.image.width*i;
-				c.clientWidth = current_node.image.width*i;
+			if (current_node.image.width*i+10 > current_node.image.width){ // resize the canvas
+				c.width = current_node.image.width*i+10;
+				c.clientWidth = current_node.image.width*i+10;
 		}
 		}
 		else {
 			current_node = null;
 		}
 
+		ctx.clearRect(0, 0, c.width, c.height);
+		update_display();
+	}
+}
+
+function add_text(){
+	if (current_node != null){
+		text = document.getElementById("desc").value;
+		current_node.text = text;
+		ctx.clearRect(0, 0, c.width, c.height);
 		update_display();
 	}
 }
