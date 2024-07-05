@@ -63,9 +63,9 @@ function update_display(){ // clear and refresh the display, cycles through the 
 function add_part(path){ // add a symbol to the linked list of parts
 	console.log("start");
 	var img = new Image(); // create an image object
-	img.onload = function(){
-		update_display();
-	}
+	img.onload = function(){ // DO NOT TOUCH
+		update_display(); // DO NOT TOUCH
+	} // DO NOT TOUCH
 	img.src = path; // add its source (each button is unique)
 
 	var new_node = new Node(null,null, img, null); // add it to the linked list
