@@ -1,7 +1,8 @@
+var i = 0
 var c = document.getElementById("main_canvas"); // This is the main canvas
 var ctx = c.getContext("2d"); // This is the canvas context, to interact with it
-ctx.scale(2,2);
-var current_node =  null; // initialise the linked list
+//ctx.scale(4,4);
+var last_node =  null; // initialise the linked list
 //console.log(c.clientHeight); // set the canvas to match the CSS style!
 c.height = c.clientHeight;
 
@@ -26,7 +27,7 @@ class Node { // Linked list implementation
 	draw(posx){ // Draw the symbol on the line in the middle of the canvas, in a chain
 		ctx.drawImage(this.image, posx+10,c.height/2-this.image.height/2);
 		if (this.text != null){
-			ctx.fillText(this.text, posx+this.image.width/2, c.height/2+30)
+			ctx.fillText(this.text, posx+this.image.width/2, c.height/2+30);
 		}
 		}
 }
@@ -34,9 +35,11 @@ class Node { // Linked list implementation
 
 
 function update_display(){ // clear and refresh the display, cycles through the linked list
+	console.log("display start");
 	i = 0; // used to offset images based on their position in the list
-	if (current_node != null){
-		var active_node = current_node;
+	ctx.clearRect(0, 0, c.width, c.height);
+	if (last_node != null){
+		var active_node = last_node;
 		while (active_node.previous != null){
 			active_node = active_node.previous;
 		}
@@ -46,47 +49,51 @@ function update_display(){ // clear and refresh the display, cycles through the 
 			i++;
 		}
 		if (active_node.next==null){
-			current_node.draw(active_node.image.width*i);
+			active_node.draw(active_node.image.width*i);
 			i++;
 		}
-		if (current_node.image.width*i+10 > c.width){
-			c.width = current_node.image.width*i+10;
-			c.clientWidth = current_node.image.width*i+10;
-			update_display()
+		if (last_node.image.width*i+10 > c.width+10){
+			c.width = last_node.image.width*i+20;
+			c.style.width = last_node.image.width*i+20;
+			update_display();
 			}
 		}
 	}
 
 function add_part(path){ // add a symbol to the linked list of parts
-	//console.log(path);
+	console.log("start");
 	var img = new Image(); // create an image object
+	img.onload = function(){
+		update_display();
+	}
 	img.src = path; // add its source (each button is unique)
-	var node = new Node(null,null, img, null); // add it to the linked list
-	if (current_node != null){
-		node.previous = current_node;
-		current_node.next = node;
-		current_node = node;
+
+	var new_node = new Node(null,null, img, null); // add it to the linked list
+	if (last_node != null){
+		new_node.previous = last_node;
+		last_node.next = new_node;
+		last_node = new_node;
 	}
 	else{
-		current_node = node;
+		last_node = new_node;
 	}
-	ctx.clearRect(0, 0, c.width, c.height);
-	update_display();
+	//update_display();
 	//ctx.drawImage(img, 50,50);
+	console.log("end");
 }
 
 function delete_part(){ // delete a symbol, from the end (right)
-	if (current_node != null){
-		if (current_node.previous != null){
-			current_node = current_node.previous;
-			current_node.next = null;
-			if (current_node.image.width*i+10 > current_node.image.width){ // resize the canvas
-				c.width = current_node.image.width*i+10;
-				c.clientWidth = current_node.image.width*i+10;
+	if (last_node != null){
+		if (last_node.previous != null){
+			last_node = last_node.previous;
+			last_node.next = null;
+			if (last_node.image.width*i+10 > last_node.image.width){ // resize the canvas
+				c.width = last_node.image.width*i+10;
+				c.style.width = last_node.image.width*i+10;
 		}
 		}
 		else {
-			current_node = null;
+			last_node = null;
 		}
 
 		ctx.clearRect(0, 0, c.width, c.height);
@@ -95,9 +102,9 @@ function delete_part(){ // delete a symbol, from the end (right)
 }
 
 function add_text(){
-	if (current_node != null){
+	if (last_node != null){
 		text = document.getElementById("desc").value;
-		current_node.text = text;
+		last_node.text = text;
 		ctx.clearRect(0, 0, c.width, c.height);
 		update_display();
 	}
