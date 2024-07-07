@@ -9,5 +9,6 @@ border: 1px solid #000000;
 }
 canvas {
 height: 300px;
+border: 1px solid #000000;
 }
 .content{display: none;}

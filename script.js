@@ -1,11 +1,11 @@
 var i = 0
 var c = document.getElementById("main_canvas"); // This is the main canvas
 var ctx = c.getContext("2d"); // This is the canvas context, to interact with it
-//ctx.scale(4,4);
 var last_node =  null; // initialise the linked list
 //console.log(c.clientHeight); // set the canvas to match the CSS style!
 c.height = c.clientHeight;
-
+const scale = 2;
+		ctx.scale(scale,scale);
 // Create a button for every glyph in the system
 var files = ['aptamer.svg', 'assembly-scar.svg', 'association.svg', 'blunt-restriction-site.svg', 'cds-arrow.svg', 'cds.svg', 'cds_blue.svg', 'cds_green.svg', 'cds_pink.svg', 'cds_red.svg', 'cds_yellow.svg', 'chromosomal-locus.svg', 'circular-plasmid.svg', 'complex-sbgn.svg', 'composite.svg', 'control.svg', 'degradation.svg', 'dissociation.svg', 'dna-stability-element.svg', 'dsNA.svg', 'engineered-region.svg', 'five-prime-overhang.svg', 'five-prime-sticky-restriction-site.svg', 'generic-sbgn.svg', 'halfround-rectangle.svg', 'inert-dna-spacer.svg', 'inhibition.svg', 'insulator.svg', 'intron.svg', 'location-dna-no-top.svg', 'location-dna.svg', 'location-protein-no-top.svg', 'location-protein.svg', 'location-rna-no-top.svg', 'location-rna.svg', 'macromolecule.svg', 'na-sbgn.svg', 'ncrna.svg', 'no-glyph-assigned.svg', 'nuclease-site.svg', 'omitted-detail.svg', 'operator.svg', 'origin-of-replication.svg', 'origin-of-transfer.svg', 'polyA.svg', 'polypeptide-region.svg', 'primer-binding-site.svg', 'process.svg', 'promoter.svg', 'protease-site.svg', 'protein-stability-element.svg', 'protein.svg', 'replacement-glyph.svg', 'ribonuclease-site.svg', 'ribosome-entry-site.svg', 'rna-stability-element.svg', 'signature.svg', 'simple-chemical-circle.svg', 'simple-chemical-hexagon.svg', 'simple-chemical-pentagon.svg', 'simple-chemical-triangle.svg', 'specific-recombination-site.svg', 'ssNA.svg', 'stimulation.svg', 'terminator.svg', 'three-prime-overhang.svg', 'three-prime-sticky-restriction-site.svg', 'transcription-end.svg', 'translation-end.svg', 'unspecified-glyph.svg'];
 
@@ -25,9 +25,9 @@ class Node { // Linked list implementation
 	this.text = text;
 }
 	draw(posx){ // Draw the symbol on the line in the middle of the canvas, in a chain
-		ctx.drawImage(this.image, posx+10,c.height/2-this.image.height/2);
+		ctx.drawImage(this.image, posx+10*scale,(c.height/2)-(this.image.height*scale/2));
 		if (this.text != null){
-			ctx.fillText(this.text, posx+this.image.width/2, c.height/2+30);
+			ctx.fillText(this.text, (posx+10*scale), c.height/(2*scale)+30);
 		}
 		}
 }
@@ -52,9 +52,11 @@ function update_display(){ // clear and refresh the display, cycles through the 
 			active_node.draw(active_node.image.width*i);
 			i++;
 		}
-		if (last_node.image.width*i+10 > c.width+10){
-			c.width = last_node.image.width*i+20;
-			c.style.width = last_node.image.width*i+20;
+		if ((last_node.image.width*i+20)*scale > c.width){
+			c.width = (last_node.image.width*i+40)*scale;
+			c.style.width = (last_node.image.width*i+40)*scale;
+			console.log("update")
+			ctx.scale(scale,scale);
 			update_display();
 			}
 		}
@@ -87,10 +89,12 @@ function delete_part(){ // delete a symbol, from the end (right)
 		if (last_node.previous != null){
 			last_node = last_node.previous;
 			last_node.next = null;
-			if (last_node.image.width*i+10 > last_node.image.width){ // resize the canvas
-				c.width = last_node.image.width*i+10;
-				c.style.width = last_node.image.width*i+10;
+			if ((last_node.image.width*i+10)*scale > last_node.image.width*scale){ // resize the canvas
+				c.width = (last_node.image.width*i+10)*scale;
+				c.style.width = (last_node.image.width*i+10)*scale;
 		}
+		console.log("delete")
+		ctx.scale(scale,scale);
 		}
 		else {
 			last_node = null;
