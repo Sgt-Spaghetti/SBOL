@@ -27,7 +27,8 @@ class Node { // Linked list implementation
 	draw(posx){ // Draw the symbol on the line in the middle of the canvas, in a chain
 		ctx.drawImage(this.image, posx+10*scale,(c.height/2)-(this.image.height*scale/2));
 		if (this.text != null){
-			ctx.fillText(this.text, (posx+10*scale), c.height/(2*scale)+30);
+			ctx.fillText(this.text, ((posx+10+ctx.measureText(this.text).width/2)*scale), c.height/(2*scale)+30);
+			console.log(ctx.measureText(this.text).width/2);
 		}
 		}
 }
