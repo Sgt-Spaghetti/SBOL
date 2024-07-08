@@ -2,7 +2,6 @@ var i = 0
 var c = document.getElementById("main_canvas"); // This is the main canvas
 var ctx = c.getContext("2d"); // This is the canvas context, to interact with it
 var last_node =  null; // initialise the linked list
-ctx.font = "italic "+text_size+"px arial";
 //console.log(c.clientHeight); // set the canvas to match the CSS style!
 c.height = c.clientHeight;
 // Create a button for every glyph in the system
