@@ -2,6 +2,8 @@ var i = 0
 var c = document.getElementById("main_canvas"); // This is the main canvas
 var ctx = c.getContext("2d"); // This is the canvas context, to interact with it
 var last_node =  null; // initialise the linked list
+var h_offset = 0; // Used to move up the nodes for plasmid circularisation, and as a boolean check!
+var w_offset = 0;
 //console.log(c.clientHeight); // set the canvas to match the CSS style!
 c.height = c.clientHeight;
 // Create a button for every glyph in the system
@@ -24,10 +26,10 @@ class Node { // Linked list implementation
 	this.text_size = 10;
 }
 	draw(posx){ // Draw the symbol on the line in the middle of the canvas, in a chain
-		ctx.drawImage(this.image, posx+10,(c.height/2)-((this.image.height*2)/2), this.image.width*2,this.image.height*2);
+		ctx.drawImage(this.image, posx+10+w_offset,(c.height/2)-((this.image.height*2)/2)-h_offset, this.image.width*2,this.image.height*2);
 		if (this.text != null){
 			ctx.font = "italic "+this.text_size+"px arial";
-			ctx.fillText(this.text, (posx+this.image.width+10-(ctx.measureText(this.text).width)/2), c.height/(2)+this.text_size/2+40);
+			ctx.fillText(this.text, (posx+this.image.width+10+w_offset-(ctx.measureText(this.text).width)/2), c.height/(2)+this.text_size/2+40-h_offset);
 		}
 		}
 }
@@ -52,12 +54,14 @@ function update_display(){ // clear and refresh the display, cycles through the 
 			active_node.draw(active_node.image.width*2*i);
 			i++;
 		}
-		if ((last_node.image.width*2*i+20) > c.width){
+		if ((last_node.image.width*2*i+20+w_offset) > c.width){
 			c.width = (last_node.image.width*2*i+40);
 			c.style.width = (last_node.image.width*2*i+40);
-			console.log("update")
+			console.log("update");
 			update_display();
 			}
+
+	
 		}
 	}
 
@@ -66,6 +70,7 @@ function add_part(path){ // add a symbol to the linked list of parts
 	var img = new Image(); // create an image object
 	img.onload = function(){ // DO NOT TOUCH
 		update_display(); // DO NOT TOUCH
+		draw_circle();
 	} // DO NOT TOUCH
 	img.src = path; // add its source (each button is unique)
 
@@ -119,6 +124,34 @@ function big_text(){
 function small_text(){
 	last_node.text_size -= 2;
 	update_display();
+}
+
+function circularise(){
+	if (h_offset != 0){
+		w_offset = 0;
+		h_offset = 0;
+	} else{
+		w_offset = 10;
+		h_offset  = 40;
+	}
+	update_display();
+	draw_circle();
+}
+
+function draw_circle(){
+		if (h_offset != 0){ // Circularise via code
+			console.log("called");
+			ctx.lineWidth = 2;
+			ctx.moveTo(21,c.height/2-h_offset);
+			ctx.lineTo(10,c.height/2-h_offset);
+			ctx.lineTo(10,c.height/2+h_offset);
+			ctx.lineTo(10,c.height/2+h_offset);
+			ctx.lineTo(last_node.image.width*2*i+30, c.height/2+h_offset);
+			ctx.lineTo(last_node.image.width*2*i+30, c.height/2-h_offset);
+			ctx.lineTo(last_node.image.width*2*i+20, c.height/2-h_offset);
+			ctx.stroke();
+	}
+
 }
 
 /*
