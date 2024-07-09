@@ -60,17 +60,14 @@ function update_display(){ // clear and refresh the display, cycles through the 
 			console.log("update");
 			update_display();
 			}
-
-	
+		draw_circle(i);
 		}
 	}
 
 function add_part(path){ // add a symbol to the linked list of parts
-	console.log("start");
 	var img = new Image(); // create an image object
 	img.onload = function(){ // DO NOT TOUCH
 		update_display(); // DO NOT TOUCH
-		draw_circle();
 	} // DO NOT TOUCH
 	img.src = path; // add its source (each button is unique)
 
@@ -83,9 +80,9 @@ function add_part(path){ // add a symbol to the linked list of parts
 	else{
 		last_node = new_node;
 	}
+
 	//update_display();
 	//ctx.drawImage(img, 50,50);
-	console.log("end");
 }
 
 function delete_part(){ // delete a symbol, from the end (right)
@@ -97,13 +94,11 @@ function delete_part(){ // delete a symbol, from the end (right)
 				c.width = (last_node.image.width*2*(i-1)+10);
 				c.style.width = (last_node.image.width*2*(i-1)+10);
 		}
-		console.log("delete")
 		}
 		else {
 			last_node = null;
 		}
 
-		ctx.clearRect(0, 0, c.width, c.height);
 		update_display();
 	}
 }
@@ -112,7 +107,6 @@ function add_text(){
 	if (last_node != null){
 		text = document.getElementById("desc").value;
 		last_node.text = text;
-		ctx.clearRect(0, 0, c.width, c.height);
 		update_display();
 	}
 }
@@ -135,20 +129,28 @@ function circularise(){
 		h_offset  = 40;
 	}
 	update_display();
-	draw_circle();
 }
-
-function draw_circle(){
+var counter = 0;
+function draw_circle(j){
 		if (h_offset != 0){ // Circularise via code
-			console.log("called");
-			ctx.lineWidth = 2;
+		counter += 1;
+			console.log(counter);
+			var xcoord = last_node.image.width*2*j
+			ctx.lineWidth = 1;
 			ctx.moveTo(21,c.height/2-h_offset);
 			ctx.lineTo(10,c.height/2-h_offset);
+			ctx.stroke();
+			ctx.moveTo(10,c.height/2-h_offset);
 			ctx.lineTo(10,c.height/2+h_offset);
-			ctx.lineTo(10,c.height/2+h_offset);
-			ctx.lineTo(last_node.image.width*2*i+30, c.height/2+h_offset);
-			ctx.lineTo(last_node.image.width*2*i+30, c.height/2-h_offset);
-			ctx.lineTo(last_node.image.width*2*i+20, c.height/2-h_offset);
+			ctx.stroke();
+			ctx.moveTo(10,c.height/2+h_offset);
+			ctx.lineTo(xcoord+30, c.height/2+h_offset);
+			ctx.stroke();
+			ctx.moveTo(xcoord+30, c.height/2+h_offset);
+			ctx.lineTo(xcoord+30, c.height/2-h_offset);
+			ctx.stroke();
+			ctx.moveTo(xcoord+30, c.height/2-h_offset);
+			ctx.lineTo(xcoord+20, c.height/2-h_offset);
 			ctx.stroke();
 	}
 
