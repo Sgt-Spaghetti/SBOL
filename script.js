@@ -37,7 +37,6 @@ class Node { // Linked list implementation
 
 
 function update_display(){ // clear and refresh the display, cycles through the linked list
-	console.log("display start");
 	i = 0; // used to offset images based on their position in the list
 	ctx.clearRect(0, 0, c.width, c.height);
 	if (last_node != null){
@@ -57,7 +56,6 @@ function update_display(){ // clear and refresh the display, cycles through the 
 		if ((last_node.image.width*2*i+20+w_offset) > c.width){
 			c.width = (last_node.image.width*2*i+40);
 			c.style.width = (last_node.image.width*2*i+40);
-			console.log("update");
 			update_display();
 			}
 		draw_circle(i);
@@ -130,13 +128,10 @@ function circularise(){
 	}
 	update_display();
 }
-var counter = 0;
 function draw_circle(j){
 		if (h_offset != 0){ // Circularise via code
-		counter += 1;
-			console.log(counter);
 			var xcoord = last_node.image.width*2*j
-			ctx.lineWidth = 1;
+			ctx.lineWidth = 1.3;
 			ctx.moveTo(21,c.height/2-h_offset);
 			ctx.lineTo(10,c.height/2-h_offset);
 			ctx.stroke();
