@@ -132,6 +132,7 @@ function draw_circle(j){
 		if (h_offset != 0){ // Circularise via code
 			var xcoord = last_node.image.width*2*j
 			ctx.lineWidth = 1.3;
+			ctx.beginPath();
 			ctx.moveTo(21,c.height/2-h_offset);
 			ctx.lineTo(10,c.height/2-h_offset);
 			ctx.stroke();
@@ -147,6 +148,7 @@ function draw_circle(j){
 			ctx.moveTo(xcoord+30, c.height/2-h_offset);
 			ctx.lineTo(xcoord+20, c.height/2-h_offset);
 			ctx.stroke();
+			ctx.closePath();
 	}
 
 }
