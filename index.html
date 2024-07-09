@@ -10,8 +10,9 @@
 
 		<h1>Create simple genetic diagrams!</h1>
 		<h2>By Leonardo Cherin, UCL</h2>
-
+<!--
 			<button type="button" class="collapsible">Available glyphs</button>
+//-->
 		<div class="content">
 		</div>
 
@@ -19,13 +20,14 @@
 		<canvas id="main_canvas">Your browser does not support the Canvas functionality</canvas>
 		</div>
 
-
-		<button type="button" onclick="delete_part()">Delete</button>
-		<button type="button" onclick="circularise()">Circularise</button>
-		<form><input type="text" id="desc" name="desc", value="Description..."></form>
-		<button type="button" onclick="add_text()">Add Text</button>
-		<button type="button" onclick="big_text()">Increase Text Size</button>
-		<button type="button" onclick="small_text()">Decrease Text Size</button>
+		<div>
+		<form><input type="text" id="desc" name="desc", value=""></form>
+		<button type="button" onclick="add_text(c, ctx, i, scale_f, h_offset, w_offset)">Add Text</button>
+		<button type="button" onclick="delete_part(c, ctx, i, scale_f, h_offset, w_offset)">Delete</button>
+		<button type="button" onclick="circularise(c, ctx, i, scale_f, h_offset, w_offset)">Toggle Circular</button>
+		<button type="button" onclick="big_text(c, ctx, i, scale_f, h_offset, w_offset)">Increase Text Size</button>
+		<button type="button" onclick="small_text(c, ctx, i, scale_f, h_offset, w_offset)">Decrease Text Size</button>
+			</div>
 <!--
 		<a id="download">
 		<button type="button" onclick="Download_Image()">Download</button>

@@ -1,7 +1,7 @@
 var i = 0
 var c = document.getElementById("main_canvas"); // This is the main canvas
 var ctx = c.getContext("2d"); // This is the canvas context, to interact with it
-var lastnode =  null; // initialise the linked list
+var last_node =  null; // initialise the linked list
 var h_offset = 0; // Used to move up the nodes for plasmid circularisation, and as a boolean check!
 var w_offset = 0;
 var scale_f = 2;
@@ -14,7 +14,7 @@ for (file in files){
 	var btn = document.createElement("button");
 	btn.type = "button";
 	btn.innerHTML = "<img src= 'Glyphs/"+files[file]+"'>";
-	btn.setAttribute("onclick","add_part(c, ctx, i, scale_f, h_offset, w_offset, 'Symbols/"+files[file]+"', )");
+	btn.setAttribute("onclick","add_part('Symbols/"+files[file]+"')");
 document.getElementsByClassName("content")[0].appendChild(btn);
 }
 
@@ -24,129 +24,139 @@ class Node { // Linked list implementation
 	this.previous=prev;
 	this.image=img;
 	this.text = text;
-	this.text_size = 16;
+	this.text_size = 10;
 }
-	draw(canvas, context, posx, scale, height_offset, width_offset){ // Draw the symbol on the line in the middle of the canvas, in a chain
-		context.drawImage(this.image, posx+10+width_offset,(canvas.height/2)-((this.image.height*scale)/2)-height_offset, this.image.width*scale,this.image.height*scale);
+	draw(canvas, context, posx, scale){ // Draw the symbol on the line in the middle of the canvas, in a chain
+		ctx.drawImage(this.image, posx+10+w_offset,(canvas.height/2)-((this.image.height*scale)/2)-h_offset, this.image.width*scale,this.image.height*scale);
 		if (this.text != null){
 			context.font = "italic "+this.text_size+"px arial";
-			context.fillText(this.text, (posx+this.image.width+10+width_offset-(context.measureText(this.text).width)/2), c.height/2+this.text_size/2+40-height_offset);
+			context.fillText(this.text, (posx+this.image.width+10+w_offset-(context.measureText(this.text).width)/2), c.height/2+this.text_size/2+40-h_offset);
 		}
 	}
 }
 
 
 
-function update_display(canvas, context, iterable, scale, height_offset, width_offset){ // clear and refresh the display, cycles through the linked list
+function update_display(canvas, context, iterable, last-node, scale){ // clear and refresh the display, cycles through the linked list
 	iterable = 0; // used to offset images based on their position in the list
 	context.clearRect(0, 0, canvas.width, canvas.height);
-	if (lastnode != null){
-		var active_node = lastnode;
+	if (last-node != null){
+		var active_node = last-node;
 		while (active_node.previous != null){
 			active_node = active_node.previous;
 		}
 		while (active_node.next != null){
-			active_node.draw(canvas, context, active_node.image.width*scale*iterable, scale, height_offset, width_offset);
+			active_node.draw(canvas, context, active_node.image.width*scale*iterable, scale);
 			active_node = active_node.next;
 			iterable ++;
 		}
 		if (active_node.next==null){
-			active_node.draw(canvas, context, active_node.image.width*scale*iterable, scale, height_offset, width_offset);
+			active_node.draw(active_node.image.width*scale*iterable);
 			iterable ++;
 		}
-		if ((lastnode.image.width*scale*iterable+20+width_offset) > canvas.width){
-			canvas.width = (lastnode.image.width*scale*iterable+40);
-			canvas.style.width = (lastnode.image.width*scale*iterable+40);
-			update_display(canvas, context, iterable, scale, height_offset, width_offset);
+		if ((last-node.image.width*scale*iterable+20+w_offset) > canvas.width){
+			c.width = (last_node.image.width*scale*iterable+40);
+			c.style.width = (last_node.image.width*scale*iterable+40);
+			update_display(canvas, context, iterable);
 			}
-		draw_circle(canvas, context, iterable, scale, height_offset);
+		draw_circle(iterable);
 		}
 	}
 
-function add_part(canvas, context, iterable, scale, height_offset, width_offset, path){ // add a symbol to the linked list of parts
+function add_part(canvas, context, iterable, last-node, scale, path){ // add a symbol to the linked list of parts
 	var img = new Image(); // create an image object
 	img.onload = function(){ // DO NOT TOUCH
-		update_display(canvas, context, iterable, scale, height_offset, width_offset);
+		update_display(canvas, context, iterable, last-node, scale); // DO NOT TOUCH
 	} // DO NOT TOUCH
 	img.src = path; // add its source (each button is unique)
 
 	var new_node = new Node(null,null, img, null); // add it to the linked list
 
-	if (lastnode != null){
-		new_node.previous = lastnode;
-		lastnode.next = new_node;
-		lastnode = new_node;
+	if (last-node != null){
+		new_node.previous = last-node;
+		last-node.next = new_node;
+		last-node = new_node;
 	} else {
-		lastnode = new_node;
+		last-node = new_node;
 	}
 
 }
 
-function delete_part(canvas, context, iterable, scale, height_offset, width_offset){ // delete a symbol, from the end (right)
-	if (lastnode != null){
-		if (lastnode.previous != null){
-			lastnode = lastnode.previous;
-			lastnode.next = null;
-			if ((lastnode.image.width*scale*iterable+10) > lastnode.image.width*scale){ // resize the canvas
-				canvas.width = (lastnode.image.width*scale*(iterable-1)+10);
-				canvas.style.width = (lastnode.image.width*scale*(iterable-1)+10);
+function delete_part(canvas, context, iterable, last-node, scale){ // delete a symbol, from the end (right)
+	if (last-node != null){
+		if (last-node.previous != null){
+			last-node = last-node.previous;
+			last-node.next = null;
+			if ((last-node.image.width*scale*iterable+10) > last-node.image.width*scale){ // resize the canvas
+				canvas.width = (last-node.image.width*scale*(iterable-1)+10);
+				canvas.style.width = (last-node.image.width*scale*(iterable-1)+10);
 		}
 		}
 		else {
-			lastnode = null;
+			last-node = null;
 		}
 
-		update_display(canvas, context, iterable, scale, height_offset, width_offset);
+		update_display(canvas, context, iterable, last-node, scale);
 	}
 }
 
-function add_text(canvas, context, iterable, scale, height_offset, width_offset){
-	if (lastnode != null){
+function add_text(canvas, context, iterable, last-node, scale){
+	if (last-node != null){
 		text = document.getElementById("desc").value;
-		lastnode.text = text;
-		update_display(canvas, context, iterable, scale, height_offset, width_offset);
+		last-node.text = text;
+		update_display(canvas, context, iterable, last-node, scale);
 	}
 }
 
-function big_text(canvas, context, iterable, scale, height_offset, width_offset){
-	lastnode.text_size += 2;
-	update_display(canvas, context, iterable, scale, height_offset, width_offset);
+function big_text(){
+	last_node.text_size += 2;
+	update_display();
 }
-function small_text(canvas, context, iterable, scale, height_offset, width_offset){
-	lastnode.text_size -= 2;
-	update_display(canvas, context, iterable, scale, height_offset, width_offset);
+function small_text(){
+	last_node.text_size -= 2;
+	update_display();
 }
 
-function circularise(canvas, context, iterable, scale, height_offset, width_offset){
-	if (height_offset != 0){
+function circularise(){
+	if (h_offset != 0){
 		w_offset = 0;
-		width_offset = 0;
 		h_offset = 0;
-		height_offset = 0;
 	} else{
 		w_offset = 10;
-		width_offset = 10;
 		h_offset  = 40;
-		height_offset = 40;
 	}
-	update_display(canvas, context, iterable, scale, height_offset, width_offset);
+	update_display();
 }
-function draw_circle(canvas, context, iterable, scale, height_offset){
-		if (height_offset != 0){ // Circularise via code
-			var xcoord = lastnode.image.width*scale*iterable;
-			context.lineWidth = 1.92;
-			context.beginPath();
-			context.moveTo(21,canvas.height/2-height_offset);
-			context.lineTo(10,canvas.height/2-height_offset);
-			context.lineTo(10,canvas.height/2+height_offset);
-			context.lineTo(xcoord+30, canvas.height/2+height_offset);
-			context.lineTo(xcoord+30, canvas.height/2-height_offset);
-			context.lineTo(xcoord+20, canvas.height/2-height_offset);
-			context.stroke();
-			context.closePath();
+function draw_circle(j){
+		if (h_offset != 0){ // Circularise via code
+			var xcoord = last_node.image.width*scale*j
+			ctx.lineWidth = 1.3;
+			ctx.beginPath();
+			ctx.moveTo(21,c.height/2-h_offset);
+			ctx.lineTo(10,c.height/2-h_offset);
+			ctx.stroke();
+			ctx.moveTo(10,c.height/2-h_offset);
+			ctx.lineTo(10,c.height/2+h_offset);
+			ctx.stroke();
+			ctx.moveTo(10,c.height/2+h_offset);
+			ctx.lineTo(xcoord+30, c.height/2+h_offset);
+			ctx.stroke();
+			ctx.moveTo(xcoord+30, c.height/2+h_offset);
+			ctx.lineTo(xcoord+30, c.height/2-h_offset);
+			ctx.stroke();
+			ctx.moveTo(xcoord+30, c.height/2-h_offset);
+			ctx.lineTo(xcoord+20, c.height/2-h_offset);
+			ctx.stroke();
+			ctx.closePath();
 	}
 
 }
+
+/*
+ctx.moveTo(0, 0);
+ctx.lineTo(c.width, c.height);
+ctx.stroke();
+*/
 
 
 function Download_Image(){ // DEPRECIATED download button implementation
@@ -157,7 +167,7 @@ function Download_Image(){ // DEPRECIATED download button implementation
 	link.href = image;
 	link.click();
 }
-/*
+
 var coll = document.getElementsByClassName("collapsible");
 var x;
 for (x=0; x<coll.length; x++){
@@ -170,4 +180,3 @@ for (x=0; x<coll.length; x++){
 		content.style.display = "block"};
 	});
 }
-*/
