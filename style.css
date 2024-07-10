@@ -30,6 +30,7 @@ border: 1px solid #000000;
 }
 button:hover{
 box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+background-color: #8785A2;
 }
 body {
 background-color: #FFE2E2;

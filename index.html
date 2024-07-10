@@ -21,7 +21,7 @@
 		</div>
 
 		<div>
-		<form><input type="text" id="desc" name="desc", value=""></form>
+		<form onSubmit="return false;"><input type="text" id="desc" name="desc", value=""></form>
 		<button type="button" onclick="add_text(c, ctx, i, scale_f, h_offset, w_offset)">Add Text</button>
 		<button type="button" onclick="delete_part(c, ctx, i, scale_f, h_offset, w_offset)">Delete</button>
 		<button type="button" onclick="circularise(c, ctx, i, scale_f, h_offset, w_offset)">Toggle Circular</button>
