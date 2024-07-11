@@ -5,6 +5,7 @@ var lastnode =  null; // initialise the linked list
 var h_offset = 0; // Used to move up the nodes for plasmid circularisation, and as a boolean check!
 var w_offset = 0;
 var scale_f = 2;
+var construct_width = 0;
 //console.log(c.clientHeight); // set the canvas to match the CSS style!
 c.height = c.clientHeight;
 // Create a button for every glyph in the system
@@ -42,37 +43,37 @@ class Node { // Linked list implementation
 
 
 
-function update_display(canvas, context, iterable, scale, height_offset, width_offset){ // clear and refresh the display, cycles through the linked list
-	iterable = 0; // used to offset images based on their position in the list
+function update_display(canvas, context, const_width, scale, height_offset, width_offset){ // clear and refresh the display, cycles through the linked list
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	if (lastnode != null){
+		construct_width = -lastnode.image.width*scale; // used to offset images based on their position in the list
 		var active_node = lastnode;
 		while (active_node.previous != null){
 			active_node = active_node.previous;
 		}
 		while (active_node.next != null){
-			active_node.draw(canvas, context, active_node.image.width*scale*iterable, scale, height_offset, width_offset);
+			active_node.draw(canvas, context, active_node.image.width*scale+construct_width, scale, height_offset, width_offset);
 			active_node = active_node.next;
-			iterable ++;
+			construct_width += active_node.image.width*scale;
 		}
 		if (active_node.next==null){
-			active_node.draw(canvas, context, active_node.image.width*scale*iterable, scale, height_offset, width_offset);
-			iterable ++;
+			active_node.draw(canvas, context, active_node.image.width*scale+construct_width, scale, height_offset, width_offset);
+			construct_width += active_node.image.width*scale;
 		}
-		if ((lastnode.image.width*scale*iterable+20+width_offset) > canvas.width){
-			canvas.width = (lastnode.image.width*scale*iterable+40);
-			canvas.style.width = (lastnode.image.width*scale*iterable+40);
-			update_display(canvas, context, iterable, scale, height_offset, width_offset);
+		if ((lastnode.image.width*scale+construct_width+20+width_offset) > canvas.width){
+			canvas.width = (lastnode.image.width*scale+construct_width+40);
+			canvas.style.width = (lastnode.image.width*scale+construct_width+40);
+			update_display(canvas, context, construct_width, scale, height_offset, width_offset);
 			}
-		draw_circle(canvas, context, iterable, scale, height_offset);
+		draw_circle(canvas, context, construct_width, scale, height_offset);
 		}
 	}
 
-function add_part(canvas, context, iterable, scale, height_offset, width_offset, path){ // add a symbol to the linked list of parts
+function add_part(canvas, context, const_width, scale, height_offset, width_offset, path){ // add a symbol to the linked list of parts
 	var img = new Image(); // create an image object
 	img.src = path; // add its source (each button is unique)
 	img.onload = function(){ // DO NOT TOUCH
-		update_display(canvas, context, iterable, scale, height_offset, width_offset);
+		update_display(canvas, context, const_width, scale, height_offset, width_offset);
 	} // DO NOT TOUCH
 
 	var new_node = new Node(null,null, img, null, null); // add it to the linked list
@@ -87,51 +88,52 @@ function add_part(canvas, context, iterable, scale, height_offset, width_offset,
 
 }
 
-function delete_part(canvas, context, iterable, scale, height_offset, width_offset){ // delete a symbol, from the end (right)
+function delete_part(canvas, context, const_width, scale, height_offset, width_offset){ // delete a symbol, from the end (right)
 	if (lastnode != null){
 		if (lastnode.previous != null){
+			var old_width = lastnode.image.width*scale;
 			lastnode = lastnode.previous;
 			lastnode.next = null;
-			if ((lastnode.image.width*scale*iterable+10) > lastnode.image.width*scale){ // resize the canvas
-				canvas.width = (lastnode.image.width*scale*(iterable-1)+10);
-				canvas.style.width = (lastnode.image.width*scale*(iterable-1)+10);
+			if ((lastnode.image.width*scale+const_width+10) > lastnode.image.width*scale){ // resize the canvas
+				canvas.width = (lastnode.image.width*scale+(const_width-old_width)+10);
+				canvas.style.width = (lastnode.image.width*scale+(const_width-old_width)+10);
 		}
 		}
 		else {
 			lastnode = null;
 		}
 
-		update_display(canvas, context, iterable, scale, height_offset, width_offset);
+		update_display(canvas, context, const_width, scale, height_offset, width_offset);
 	}
 }
 
-function add_text(canvas, context, iterable, scale, height_offset, width_offset){
+function add_text(canvas, context, const_width, scale, height_offset, width_offset){
 	if (lastnode != null){
 		let text = document.getElementById("desc").value;
 		console.log(text);
 		lastnode.text = text;
-		update_display(canvas, context, iterable, scale, height_offset, width_offset);
+		update_display(canvas, context, const_width, scale, height_offset, width_offset);
 	}
 }
-function add_text_centered(canvas, context, iterable, scale, height_offset, width_offset){
+function add_text_centered(canvas, context, const_width, scale, height_offset, width_offset){
 	if (lastnode != null){
 		let c_text = document.getElementById("desc").value;
 		console.log(c_text);
 		lastnode.text_centered = c_text;
-		update_display(canvas, context, iterable, scale, height_offset, width_offset);
+		update_display(canvas, context, const_width, scale, height_offset, width_offset);
 	}
 }
 
-function big_text(canvas, context, iterable, scale, height_offset, width_offset){
+function big_text(canvas, context, const_width, scale, height_offset, width_offset){
 	lastnode.text_size += 2;
-	update_display(canvas, context, iterable, scale, height_offset, width_offset);
+	update_display(canvas, context, const_width, scale, height_offset, width_offset);
 }
-function small_text(canvas, context, iterable, scale, height_offset, width_offset){
+function small_text(canvas, context, const_width, scale, height_offset, width_offset){
 	lastnode.text_size -= 2;
-	update_display(canvas, context, iterable, scale, height_offset, width_offset);
+	update_display(canvas, context, const_width, scale, height_offset, width_offset);
 }
 
-function circularise(canvas, context, iterable, scale, height_offset, width_offset){
+function circularise(canvas, context, const_width, scale, height_offset, width_offset){
 	if (height_offset != 0){
 		w_offset = 0;
 		width_offset = 0;
@@ -143,11 +145,11 @@ function circularise(canvas, context, iterable, scale, height_offset, width_offs
 		h_offset  = 40;
 		height_offset = 40;
 	}
-	update_display(canvas, context, iterable, scale, height_offset, width_offset);
+	update_display(canvas, context, const_width, scale, height_offset, width_offset);
 }
-function draw_circle(canvas, context, iterable, scale, height_offset){
+function draw_circle(canvas, context, const_width, scale, height_offset){
 		if (height_offset != 0){ // Circularise via code
-			var xcoord = lastnode.image.width*scale*iterable;
+			var xcoord = lastnode.image.width*scale+const_width;
 			context.lineWidth = 1.92;
 			context.beginPath();
 			context.moveTo(21,canvas.height/2-height_offset);
