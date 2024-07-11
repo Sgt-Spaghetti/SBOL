@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   viewBox="0 0 47.999996 144"
+   viewBox="0 0 48 144"
    version="1.1"
    xml:space="preserve"
    x="0px"
    y="0px"
-   width="47.999996"
+   width="48"
    height="144"
    id="svg2"
    sodipodi:docname="cds_yellow.svg"
@@ -24,19 +24,20 @@
      inkscape:pageshadow="0"
      inkscape:pageopacity="0"
      inkscape:pagecheckerboard="0"
-     inkscape:document-units="in"
+     inkscape:document-units="px"
      showgrid="false"
-     inkscape:zoom="12.125"
-     inkscape:cx="25.56701"
-     inkscape:cy="71.010309"
-     inkscape:window-width="751"
+     inkscape:zoom="4.2868349"
+     inkscape:cx="18.545151"
+     inkscape:cy="71.148064"
+     inkscape:window-width="1514"
      inkscape:window-height="806"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer9"
+     inkscape:current-layer="svg2"
      inkscape:showpageshadow="2"
-     inkscape:deskcolor="#d1d1d1" /><metadata
+     inkscape:deskcolor="#d1d1d1"
+     showguides="true" /><metadata
      id="metadata12"><rdf:RDF><cc:Work
          rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
@@ -53,8 +54,8 @@
      style="fill:#000000;stroke-width:0.9375;stroke-dasharray:none"
      d="M -0.0750516,72 H 4.8536422"
      id="path1" /><path
-     style="fill:#000000;stroke-width:0.9375;stroke-dasharray:none"
-     d="m 39.8453,72 h 5.610522"
+     style="fill:#000000;stroke-width:1;stroke-dasharray:none"
+     d="M 37.133728,72 H 48.167394"
      id="path2" /><g
      inkscape:groupmode="layer"
      id="layer9"

@@ -65,6 +65,7 @@ function update_display(canvas, context, const_width, scale, height_offset, widt
 			canvas.style.width = (lastnode.image.width*scale+construct_width+40);
 			update_display(canvas, context, construct_width, scale, height_offset, width_offset);
 			}
+		console.log(construct_width)
 		draw_circle(canvas, context, construct_width, scale, height_offset);
 		}
 	}
