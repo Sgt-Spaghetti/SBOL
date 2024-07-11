@@ -19,11 +19,12 @@ document.getElementsByClassName("content")[0].appendChild(btn);
 }
 
 class Node { // Linked list implementation
-	constructor (prev, next, img, text){
+	constructor (prev, next, img, text, text_centered){
 	this.next=next;
 	this.previous=prev;
 	this.image=img;
 	this.text = text;
+	this.text_centered = text_centered;
 	this.text_size = 16;
 }
 	draw(canvas, context, posx, scale, height_offset, width_offset){ // Draw the symbol on the line in the middle of the canvas, in a chain
@@ -31,6 +32,10 @@ class Node { // Linked list implementation
 		if (this.text != null){
 			context.font = "italic "+this.text_size+"px arial";
 			context.fillText(this.text, (posx+this.image.width+10+width_offset-(context.measureText(this.text).width)/2), c.height/2+this.text_size/2+40-height_offset);
+		}
+		if (this.text_centered != null){
+			context.font = "italic "+this.text_size+"px arial";
+			context.fillText(this.text_centered, (posx+this.image.width+10+width_offset-(context.measureText(this.text_centered).width)/2), c.height/2+this.text_size/2-height_offset);
 		}
 	}
 }
@@ -65,12 +70,12 @@ function update_display(canvas, context, iterable, scale, height_offset, width_o
 
 function add_part(canvas, context, iterable, scale, height_offset, width_offset, path){ // add a symbol to the linked list of parts
 	var img = new Image(); // create an image object
+	img.src = path; // add its source (each button is unique)
 	img.onload = function(){ // DO NOT TOUCH
 		update_display(canvas, context, iterable, scale, height_offset, width_offset);
 	} // DO NOT TOUCH
-	img.src = path; // add its source (each button is unique)
 
-	var new_node = new Node(null,null, img, null); // add it to the linked list
+	var new_node = new Node(null,null, img, null, null); // add it to the linked list
 
 	if (lastnode != null){
 		new_node.previous = lastnode;
@@ -102,8 +107,17 @@ function delete_part(canvas, context, iterable, scale, height_offset, width_offs
 
 function add_text(canvas, context, iterable, scale, height_offset, width_offset){
 	if (lastnode != null){
-		text = document.getElementById("desc").value;
+		let text = document.getElementById("desc").value;
+		console.log(text);
 		lastnode.text = text;
+		update_display(canvas, context, iterable, scale, height_offset, width_offset);
+	}
+}
+function add_text_centered(canvas, context, iterable, scale, height_offset, width_offset){
+	if (lastnode != null){
+		let c_text = document.getElementById("desc").value;
+		console.log(c_text);
+		lastnode.text_centered = c_text;
 		update_display(canvas, context, iterable, scale, height_offset, width_offset);
 	}
 }
