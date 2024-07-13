@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   viewBox="0 0 44.999998 134.99999"
+   viewBox="0 0 48 144"
    version="1.1"
    xml:space="preserve"
    x="0px"
    y="0px"
-   width="0.5in"
-   height="1.5in"
+   width="48"
+   height="144"
    id="svg2"
-   inkscape:version="1.3.2 (091e20ef0f, 2023-11-25, custom)"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
    sodipodi:docname="cds-arrow.svg"
    inkscape:export-filename="/Users/jakebeal/projects/SBOL/SBOLv-realizations/Glyphs/cds/cds-specification-arrow.png"
    inkscape:export-xdpi="300"
@@ -31,23 +31,24 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="751"
-     inkscape:window-height="806"
+     inkscape:window-width="2560"
+     inkscape:window-height="1408"
      id="namedview10"
      showgrid="false"
-     units="in"
-     inkscape:zoom="4.2401221"
-     inkscape:cx="20.989962"
-     inkscape:cy="67.450888"
+     units="px"
+     inkscape:zoom="23.985753"
+     inkscape:cx="26.699746"
+     inkscape:cy="75.688817"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg2"
      inkscape:pagecheckerboard="0"
-     inkscape:document-units="in"
+     inkscape:document-units="px"
      height="1.5in"
      inkscape:showpageshadow="2"
-     inkscape:deskcolor="#d1d1d1" /><defs
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:rotation="-1" /><defs
      id="defs4"><style
        type="text/css"
        id="style6"><![CDATA[
@@ -58,14 +59,14 @@
         stroke-linejoin: round;
         fill: none
       }]]></style></defs><path
-     d="M 5.2562231,73.941358 28.707624,73.888392 28.867396,78.973137 39.743829,67.572553 28.867396,56.171968 28.813556,62.104171 5.2562231,61.998238 Z"
+     d="M 6.7562061,78.368804 30.207607,78.315838 30.367379,83.400583 41.243812,71.999999 30.367379,60.599414 30.313539,66.531617 6.7562061,66.425684 Z"
      id="path8"
      inkscape:connector-curvature="0"
-     style="fill:none;stroke:#000000;stroke-width:0.9375;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+     style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
      sodipodi:nodetypes="cccccccc" /><path
-     style="fill:none;stroke:#000000;stroke-width:0.93749994;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M -1.6500062,67.499996 H 5.198742"
+     style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M -4.3501881,72 H 6.7792829"
      id="path3711" /><path
-     style="fill:none;stroke:#000000;stroke-width:0.93749994;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 39.743829,67.499996 H 55.05037"
+     style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 40.991594,72 H 56.298135"
      id="path3713" /></svg>

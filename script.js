@@ -8,6 +8,8 @@ var scale_f = 2;
 var construct_width = 0;
 //console.log(c.clientHeight); // set the canvas to match the CSS style!
 c.height = c.clientHeight;
+c.ondrop = drop;
+c.ondragover = allowDrop;
 // Create a button for every glyph in the system
 var files = ['aptamer.svg', 'assembly-scar.svg', 'association.svg', 'blunt-restriction-site.svg', 'cds-arrow.svg', 'cds.svg', 'cds_blue.svg', 'cds_green.svg', 'cds_pink.svg', 'cds_red.svg', 'cds_yellow.svg', 'chromosomal-locus.svg', 'circular-plasmid.svg', 'complex-sbgn.svg', 'composite.svg', 'control.svg', 'degradation.svg', 'dissociation.svg', 'dna-stability-element.svg', 'dsNA.svg', 'engineered-region.svg', 'five-prime-overhang.svg', 'five-prime-sticky-restriction-site.svg', 'generic-sbgn.svg', 'halfround-rectangle.svg', 'inert-dna-spacer.svg', 'inhibition.svg', 'insulator.svg', 'intron.svg', 'location-dna-no-top.svg', 'location-dna.svg', 'location-protein-no-top.svg', 'location-protein.svg', 'location-rna-no-top.svg', 'location-rna.svg', 'macromolecule.svg', 'na-sbgn.svg', 'ncrna.svg', 'no-glyph-assigned.svg', 'nuclease-site.svg', 'omitted-detail.svg', 'operator.svg', 'origin-of-replication.svg', 'origin-of-transfer.svg', 'polyA.svg', 'polypeptide-region.svg', 'primer-binding-site.svg', 'process.svg', 'promoter.svg', 'protease-site.svg', 'protein-stability-element.svg', 'protein.svg', 'replacement-glyph.svg', 'ribonuclease-site.svg', 'ribosome-entry-site.svg', 'rna-stability-element.svg', 'signature.svg', 'simple-chemical-circle.svg', 'simple-chemical-hexagon.svg', 'simple-chemical-pentagon.svg', 'simple-chemical-triangle.svg', 'specific-recombination-site.svg', 'ssNA.svg', 'stimulation.svg', 'terminator.svg', 'three-prime-overhang.svg', 'three-prime-sticky-restriction-site.svg', 'transcription-end.svg', 'translation-end.svg', 'unspecified-glyph.svg'];
 
@@ -16,6 +18,8 @@ for (file in files){
 	btn.type = "button";
 	btn.innerHTML = "<img src= 'Glyphs/"+files[file]+"'>";
 	btn.setAttribute("onclick","add_part(c, ctx, i, scale_f, h_offset, w_offset, 'Symbols/"+files[file]+"', )");
+	btn.setAttribute("draggable","true");
+	btn.setAttribute("ondragstart","drag(event)");
 document.getElementsByClassName("content")[0].appendChild(btn);
 }
 
@@ -73,7 +77,7 @@ function update_display(canvas, context, const_width, scale, height_offset, widt
 function add_part(canvas, context, const_width, scale, height_offset, width_offset, path){ // add a symbol to the linked list of parts
 	var img = new Image(); // create an image object
 	img.src = path; // add its source (each button is unique)
-	img.onload = function(){ // DO NOT TOUCH
+	img.onload = function(){ // DO canvasNOT TOUCH
 		update_display(canvas, context, const_width, scale, height_offset, width_offset);
 	} // DO NOT TOUCH
 
@@ -188,3 +192,29 @@ for (x=0; x<coll.length; x++){
 	});
 }
 */
+
+var obj;
+var mouseX = 0;
+function drag(ev) {
+console.log("drag");
+obj = ev.target;
+	console.log(obj);
+}
+function drop(ev) {
+ev.preventDefault();
+c.onmousemove = function(e) {
+console.log("hover");
+mouseX = e.pageX - this.offsetLeft;
+}
+
+console.log("drop");
+console.log(obj.src);
+console.log("Symbols/"+obj.src.substring(46));
+add_part(c, ctx, construct_width,2, h_offset, w_offset, "Symbols/"+obj.src.substring(46))
+}
+function allowDrop(ev){
+ev.preventDefault();
+}
+
+
+
