@@ -8,7 +8,6 @@ var w_offset = 0;
 var scale_f = 2;
 var construct_width = 0;
 var number_of_nodes = 0;
-//console.log(c.clientHeight); // set the canvas to match the CSS style!
 c.height = c.clientHeight;
 c.ondrop = drop;
 c.ondragover = allowDrop;
@@ -67,6 +66,8 @@ function update_display(canvas, context, const_width, scale, height_offset, widt
 		if (active_node.next==null){
 			active_node.draw(canvas, context, active_node.image.width*scale+construct_width, scale, height_offset, width_offset);
 			construct_width += active_node.image.width*scale;
+c.onmousehover = function(e) {
+mouseX = e.pageX - this.offsetLeft;}
 			number_of_nodes += 1;
 		}
 		if ((lastnode.image.width*scale+construct_width+20+width_offset) > canvas.width){
@@ -74,7 +75,6 @@ function update_display(canvas, context, const_width, scale, height_offset, widt
 			canvas.style.width = (lastnode.image.width*scale+construct_width+40);
 			update_display(canvas, context, construct_width, scale, height_offset, width_offset);
 			}
-		console.log(construct_width)
 		draw_circle(canvas, context, construct_width, scale, height_offset);
 		}
 	}
@@ -120,7 +120,6 @@ function delete_part(canvas, context, const_width, scale, height_offset, width_o
 function add_text(canvas, context, const_width, scale, height_offset, width_offset){
 	if (lastnode != null){
 		let text = document.getElementById("desc").value;
-		console.log(text);
 		lastnode.text = text;
 		update_display(canvas, context, const_width, scale, height_offset, width_offset);
 	}
@@ -128,7 +127,6 @@ function add_text(canvas, context, const_width, scale, height_offset, width_offs
 function add_text_centered(canvas, context, const_width, scale, height_offset, width_offset){
 	if (lastnode != null){
 		let c_text = document.getElementById("desc").value;
-		console.log(c_text);
 		lastnode.text_centered = c_text;
 		update_display(canvas, context, const_width, scale, height_offset, width_offset);
 	}
@@ -200,28 +198,23 @@ for (x=0; x<coll.length; x++){
 
 var obj;
 var mouseX = 0;
+
+
 function drag(ev) {
-console.log("drag");
-obj = ev.target;
-	console.log(obj);
+	obj = ev.target;
 }
 function drop(ev) {
-ev.preventDefault();
-c.onmousemove = function(e) {
-console.log("hover");
-mouseX = e.pageX - this.offsetLeft;
+	ev.preventDefault();
 
+	mouseX = ev.clientX - c.offsetLeft;
+	console.log(construct_width, number_of_nodes, mouseX);
+	console.log(ev);
+	var position = ((mouseX - 10 - w_offset)/(construct_width+96))*number_of_nodes;
+	if (position > 0){
+		insert_part(c, ctx, construct_width,2, h_offset, w_offset, "Symbols/"+obj.src.substring(46), position);}
+	else {add_part(c, ctx, construct_width,2, h_offset, w_offset, "Symbols/"+obj.src.substring(46), position);}
 }
 
-var position = ((mouseX - 10 - w_offset)/(construct_width))*number_of_nodes;
-console.log(position);
-console.log("drop");
-console.log(obj.src);
-console.log("Symbols/"+obj.src.substring(44));
-if (position > 0){
-insert_part(c, ctx, construct_width,2, h_offset, w_offset, "Symbols/"+obj.src.substring(44), position);}
-else {add_part(c, ctx, construct_width,2, h_offset, w_offset, "Symbols/"+obj.src.substring(44), position);}
-}
 function allowDrop(ev){
 ev.preventDefault();
 }
@@ -237,12 +230,12 @@ function insert_part(canvas, context, const_width, scale, height_offset, width_o
 
 	if (lastnode != null){
 		let a_node = lastnode;
-		console.log(a_node);
 		while (a_node.previous != null){
 			a_node = a_node.previous;
 		}
 		for (i = 0; i < position; i++){
-			a_node = a_node.next;
+			if (a_node.next != null){
+			a_node = a_node.next;}
 		}
 		new_node.previous = a_node.previous;
 		a_node.previous.next = new_node;
