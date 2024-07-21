@@ -2,10 +2,12 @@ var i = 0
 var c = document.getElementById("main_canvas"); // This is the main canvas
 var ctx = c.getContext("2d"); // This is the canvas context, to interact with it
 var lastnode =  null; // initialise the linked list
+var active_node = null;
 var h_offset = 0; // Used to move up the nodes for plasmid circularisation, and as a boolean check!
 var w_offset = 0;
 var scale_f = 2;
 var construct_width = 0;
+var number_of_nodes = 0;
 //console.log(c.clientHeight); // set the canvas to match the CSS style!
 c.height = c.clientHeight;
 c.ondrop = drop;
@@ -49,9 +51,10 @@ class Node { // Linked list implementation
 
 function update_display(canvas, context, const_width, scale, height_offset, width_offset){ // clear and refresh the display, cycles through the linked list
 	context.clearRect(0, 0, canvas.width, canvas.height);
+	number_of_nodes = 0;
 	if (lastnode != null){
 		construct_width = -lastnode.image.width*scale; // used to offset images based on their position in the list
-		var active_node = lastnode;
+		active_node = lastnode;
 		while (active_node.previous != null){
 			active_node = active_node.previous;
 		}
@@ -59,10 +62,12 @@ function update_display(canvas, context, const_width, scale, height_offset, widt
 			active_node.draw(canvas, context, active_node.image.width*scale+construct_width, scale, height_offset, width_offset);
 			active_node = active_node.next;
 			construct_width += active_node.image.width*scale;
+			number_of_nodes += 1;
 		}
 		if (active_node.next==null){
 			active_node.draw(canvas, context, active_node.image.width*scale+construct_width, scale, height_offset, width_offset);
 			construct_width += active_node.image.width*scale;
+			number_of_nodes += 1;
 		}
 		if ((lastnode.image.width*scale+construct_width+20+width_offset) > canvas.width){
 			canvas.width = (lastnode.image.width*scale+construct_width+40);
@@ -205,16 +210,49 @@ ev.preventDefault();
 c.onmousemove = function(e) {
 console.log("hover");
 mouseX = e.pageX - this.offsetLeft;
+
 }
 
+var position = ((mouseX - 10 - w_offset)/(construct_width))*number_of_nodes;
+console.log(position);
 console.log("drop");
 console.log(obj.src);
-console.log("Symbols/"+obj.src.substring(46));
-add_part(c, ctx, construct_width,2, h_offset, w_offset, "Symbols/"+obj.src.substring(46))
+console.log("Symbols/"+obj.src.substring(44));
+if (position > 0){
+insert_part(c, ctx, construct_width,2, h_offset, w_offset, "Symbols/"+obj.src.substring(44), position);}
+else {add_part(c, ctx, construct_width,2, h_offset, w_offset, "Symbols/"+obj.src.substring(44), position);}
 }
 function allowDrop(ev){
 ev.preventDefault();
 }
 
+function insert_part(canvas, context, const_width, scale, height_offset, width_offset, path, position){ // add a symbol to the linked list of parts
+	var img = new Image(); // create an image object
+	img.src = path; // add its source (each button is unique)
+	img.onload = function(){ // DO canvasNOT TOUCH
+		update_display(canvas, context, const_width, scale, height_offset, width_offset);
+	} // DO NOT TOUCH
+
+	var new_node = new Node(null,null, img, null, null); // add it to the linked list
+
+	if (lastnode != null){
+		let a_node = lastnode;
+		console.log(a_node);
+		while (a_node.previous != null){
+			a_node = a_node.previous;
+		}
+		for (i = 0; i < position; i++){
+			a_node = a_node.next;
+		}
+		new_node.previous = a_node.previous;
+		a_node.previous.next = new_node;
+		new_node.next = a_node;
+		a_node.previous = new_node;
+		a_node = new_node;
+	} else {
+		lastnode = new_node;
+	}
+
+}
 
 
