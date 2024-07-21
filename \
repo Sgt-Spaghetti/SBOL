@@ -59,7 +59,7 @@ function update_display(canvas, context, const_width, scale, height_offset, widt
 			a_node = a_node.previous;
 		}
 		while (a_node.next != null){
-			a_node.draw(canvas, context, a_node.image.width*scale+construct_width, scale, height_offset, width_offset);
+			a_node.draw(canvas, context, active_node.image.width*scale+construct_width, scale, height_offset, width_offset);
 			a_node = a_node.next;
 			construct_width += a_node.image.width*scale;
 			number_of_nodes += 1;
@@ -94,7 +94,6 @@ function add_part(canvas, context, const_width, scale, height_offset, width_offs
 	} else {
 		lastnode = new_node;
 	}
-	active_node = lastnode;
 
 }
 
