@@ -210,8 +210,10 @@ function drop(ev) {
 	console.log(construct_width, number_of_nodes, mouseX);
 	var position = ((mouseX - 10 - w_offset)/(construct_width+96))*number_of_nodes;
 	if (position > 0){
-		insert_part(c, ctx, construct_width,2, h_offset, w_offset, "Symbols/"+obj.src.substring(44), position);}
-	else {add_part(c, ctx, construct_width,2, h_offset, w_offset, "Symbols/"+obj.src.substring(44), position);}
+		console.log(obj.src);
+		console.log(obj.src.lastIndexOf("/"));
+		insert_part(c, ctx, construct_width,2, h_offset, w_offset, "Symbols"+obj.src.substring(obj.src.lastIndexOf("/")), position);}
+	else {add_part(c, ctx, construct_width,2, h_offset, w_offset, "Symbols"+obj.src.substring(obj.src.lastIndexOf("/")), position);}
 }
 
 function allowDrop(ev){
