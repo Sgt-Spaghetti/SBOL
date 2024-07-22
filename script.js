@@ -208,11 +208,10 @@ function drop(ev) {
 
 	mouseX = ev.clientX - c.offsetLeft;
 	console.log(construct_width, number_of_nodes, mouseX);
-	console.log(ev);
 	var position = ((mouseX - 10 - w_offset)/(construct_width+96))*number_of_nodes;
 	if (position > 0){
-		insert_part(c, ctx, construct_width,2, h_offset, w_offset, "Symbols/"+obj.src.substring(46), position);}
-	else {add_part(c, ctx, construct_width,2, h_offset, w_offset, "Symbols/"+obj.src.substring(46), position);}
+		insert_part(c, ctx, construct_width,2, h_offset, w_offset, "Symbols/"+obj.src.substring(44), position);}
+	else {add_part(c, ctx, construct_width,2, h_offset, w_offset, "Symbols/"+obj.src.substring(44), position);}
 }
 
 function allowDrop(ev){
@@ -222,7 +221,9 @@ ev.preventDefault();
 function insert_part(canvas, context, const_width, scale, height_offset, width_offset, path, position){ // add a symbol to the linked list of parts
 	var img = new Image(); // create an image object
 	img.src = path; // add its source (each button is unique)
-	img.onload = function(){ // DO canvasNOT TOUCH
+	console.log(img);
+	img.onload = function(){ // DO NOT TOUCH
+		console.log("beep");
 		update_display(canvas, context, const_width, scale, height_offset, width_offset);
 		active_node = new_node;
 	} // DO NOT TOUCH
