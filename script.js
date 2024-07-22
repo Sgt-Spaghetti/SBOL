@@ -239,11 +239,18 @@ function insert_part(canvas, context, const_width, scale, height_offset, width_o
 			if (active_node.next != null){
 			active_node = active_node.next;}
 		}
+		if (active_node.previous != null){
 		new_node.previous = active_node.previous;
 		active_node.previous.next = new_node;
 		new_node.next = active_node;
 		active_node.previous = new_node;
 		active_node = new_node;
+		} else {
+		new_node.previous = active_node;
+		active_node.next = new_node;
+		active_node = new_node;
+		lastnode = active_node;
+		}
 	} else {
 		lastnode = new_node;
 	}
