@@ -99,7 +99,15 @@ function add_part(canvas, context, const_width, scale, height_offset, width_offs
 }
 
 function delete_part(canvas, context, const_width, scale, height_offset, width_offset){ // delete a symbol, from the end (right)
-	if (lastnode != null){
+	if (active_node != null && active_node.previous != null && active_node.next != null){
+		active_node.previous.next = active_node.next;
+		active_node.next.previous = active_node.previous;
+		active_node = active_node.previous;
+		update_display(canvas, context, const_width, scale, height_offset, width_offset);
+		active_node = lastnode;
+	}
+	else {
+		if (lastnode != null){
 		if (lastnode.previous != null){
 			var old_width = lastnode.image.width*scale;
 			lastnode = lastnode.previous;
@@ -114,6 +122,7 @@ function delete_part(canvas, context, const_width, scale, height_offset, width_o
 		}
 
 		update_display(canvas, context, const_width, scale, height_offset, width_offset);
+	}
 	}
 }
 
