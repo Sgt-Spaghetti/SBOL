@@ -208,7 +208,7 @@ function drop(ev) {
 
 	mouseX = ev.clientX - c.offsetLeft;
 	console.log(construct_width, number_of_nodes, mouseX);
-	var position = ((mouseX - 10 - w_offset)/(construct_width+96))*number_of_nodes;
+	var position = Math.round(((mouseX - 10 - w_offset)/(construct_width+96))*number_of_nodes);
 	if (position > 0){
 		console.log(obj.src);
 		console.log(obj.src.lastIndexOf("/"));
