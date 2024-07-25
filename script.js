@@ -63,7 +63,7 @@ const hashtable = new Map([
 ['polypeptide-region.svg',['rbcl']],
 ['primer-binding-site.svg',['rbcl']],
 ['process.svg',['rbcl']],
-['promoter.svg',['rbcl']],
+['promoter.svg',['rbcl', 'aadA']],
 ['protease-site.svg',['rbcl']],
 ['protein-stability-element.svg',['rbcl']],
 ['protein.svg',['rbcl']],
@@ -217,11 +217,11 @@ function add_text_centered(canvas, context, const_width, scale, height_offset, w
 }
 
 function big_text(canvas, context, const_width, scale, height_offset, width_offset){
-	lastnode.text_size += 2;
+	active_node.text_size += 2;
 	update_display(canvas, context, const_width, scale, height_offset, width_offset);
 }
 function small_text(canvas, context, const_width, scale, height_offset, width_offset){
-	lastnode.text_size -= 2;
+	active_node.text_size -= 2;
 	update_display(canvas, context, const_width, scale, height_offset, width_offset);
 }
 
@@ -320,6 +320,11 @@ function insert_part(canvas, context, const_width, scale, height_offset, width_o
 			if (active_node.next != null){
 			active_node = active_node.next;}
 		}
+		if (active_node.next == null) {
+			active_node.next = new_node;
+			new_node.previous = active_node;
+			active_node = new_node;
+		} else {
 		if (active_node.previous != null){
 		new_node.previous = active_node.previous;
 		active_node.previous.next = new_node;
@@ -332,7 +337,8 @@ function insert_part(canvas, context, const_width, scale, height_offset, width_o
 		active_node = new_node;
 		lastnode = active_node;
 		}
-	} else {
+		} 
+	}else {
 		lastnode = new_node;
 	}
 
