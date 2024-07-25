@@ -112,7 +112,7 @@ class Node { // Linked list implementation
 		context.drawImage(this.image, posx+10+width_offset,(canvas.height/2)-((this.image.height*scale)/2)-height_offset, this.image.width*scale,this.image.height*scale);
 		if (this.text != null){
 			context.font = "italic "+this.text_size+"px arial";
-			context.fillText(this.text, (posx+this.image.width+10+width_offset-(context.measureText(this.text).width)/2), c.height/2+this.text_size/2+40-height_offset);
+			context.fillText(this.text, (posx+this.image.width+10+width_offset-(context.measureText(this.text).width)/2), c.height/2+this.text_size/2+32-height_offset);
 		}
 		if (this.text_centered != null){
 			context.font = "italic "+this.text_size+"px arial";
@@ -369,7 +369,9 @@ window.onclick = function(event) {
 function quick_add(path, text){
 add_part(c, ctx, construct_width, 2, h_offset, w_offset, path) // add a symbol to the linked list of parts
 	if (active_node != null){
-		active_node.text = text;
+		if (document.getElementById("quick_center_bool").checked == false){
+		active_node.text = text;}
+		else {active_node.text_centered = text}
 		update_display(c, ctx, construct_width, 2, h_offset, w_offset);
 }
 	}
