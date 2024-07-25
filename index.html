@@ -22,6 +22,7 @@
 
 		<div>
 		<form onSubmit="return false;"><input type="text" id="desc" name="desc", value=""></form>
+	
 		<button type="button" onclick="add_text(c, ctx, construct_width, scale_f, h_offset, w_offset)">Add Text</button>
 		<button type="button" onclick="add_text_centered(c, ctx, construct_width, scale_f, h_offset, w_offset)">Add Centered Text</button>
 		<button type="button" onclick="circularise(c, ctx, construct_width, scale_f, h_offset, w_offset)">Toggle Circular</button>
@@ -35,9 +36,22 @@
 		<a id="download">
 		<button type="button" onclick="Download_Image()">Download</button>
 		</a>
-//-->
+//-->		<div id="MyModal" class="modal">
+				<div class="modal-content">
+				<div class="modal-header">
+					<span class="close" onclick="modal.style.display = 'none';">&times;</span> 
+					<h2>Quick Add</h2>
+				</div>
+				<div class="modal-body">
+				</div>
+				<div class="modal-footer">
+				</div>
+				</div>
+		</div>
+
 		<script src="script.js"></script>
 
 	</body>
+
 
 </html>

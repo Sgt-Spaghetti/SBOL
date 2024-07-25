@@ -39,3 +39,35 @@ background-color: #FFE2E2;
 form {
 margin-bottom: 5px;
 }
+.modal{
+display: none;
+	z-index: 1;
+	overflow: auto;
+	left: 0;
+	top:0;
+	height: 100%;
+	width: 100%;
+	position:fixed;
+	background-color: rgba(0,0,0,0.4);
+}
+.modal-content {
+	position:fixed;
+bottom: 0;
+  background-color: #fefefe;
+	width:100%;
+}
+.modal-header {padding: 2px 16px;
+	float: center;
+	background-color: #8785A2;
+color: white;}
+.modal-body {padding: 2px 16px;}
+.modal-footer {padding: 2px 0px;
+background-color: #8785A2;
+margin-top: 16px;
+height: 16px;}
+.close {
+	color: white;
+	float:right;
+	font-size: 28px;
+	font-weight: bold;
+}
