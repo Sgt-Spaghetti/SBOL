@@ -310,11 +310,10 @@ function drop(ev) { // On drop
 	ev.preventDefault();
 
 	mouseX = ev.clientX - c.offsetLeft; // Get the mouse X position
-	var position = Math.round(((mouseX - 10 - w_offset)/(construct_width+96))*number_of_nodes); // Integer rounding, allows drag and drop in front and behind the node.
+	var position = ((mouseX - 10 - w_offset)/(construct_width+96))*number_of_nodes; // Allows drag and drop in front and behind the node.
 	if (position > 0){ // Insert a node in the construct.
 		insert_part(c, ctx, construct_width,2, h_offset, w_offset, "Symbols"+obj.src.substring(obj.src.lastIndexOf("/")), position);}
 	else { // Substring thing is to use the img source of the dragged object to cut the wrong "glyphs" path and replace with correct "symbols" path for adding to canvas, not displaying as a button icon.
-		position = 0;
 		insert_part(c, ctx, construct_width,2, h_offset, w_offset, "Symbols"+obj.src.substring(obj.src.lastIndexOf("/")), position);}
 }
 
@@ -337,37 +336,48 @@ function insert_part(canvas, context, const_width, scale, height_offset, width_o
 		while (active_node.previous != null){
 			active_node = active_node.previous; // Cycle to the start
 		}
-		for (i = 0; i < position; i++){ // Progress through the list to the position to insert into
-			if (active_node.next != null){
-				active_node = active_node.next;
-			}
-		}
-		if (active_node.next == null && active_node.previous != null) { // If we are the last node in the list (adding to end)
-			active_node.next = new_node;
-			new_node.previous = active_node;
-			active_node = new_node;
-			lastnode = active_node;
-		}
-		else if (active_node.previous != null && active_node.next != null){ // We add to the middle of the list
-			new_node.previous = active_node.previous;
-			active_node.previous.next = new_node;
-			new_node.next = active_node;
-			active_node.previous = new_node;
-			active_node = new_node;
-		}
-		else if (active_node.previous == null && active_node.next != null){ // We add to the beginning of the list
-			new_node.next = active_node;
-			active_node.previous = new_node;
-			active_node = new_node;
-		}
 
-		else if (active_node.previous == null && active_node.next == null){
+		console.log(active_node);
+		console.log(position, number_of_nodes);
+		if (position >= number_of_nodes-0.5) { // If we are the last node in the list (adding to end)
+			active_node = lastnode
 			active_node.next = new_node;
 			new_node.previous = active_node;
 			active_node = new_node;
 			lastnode = active_node;
+			console.log("Added To End");
 		}
-			
+		else if (position < 0.5) { // We are at the start, add to the begining!
+			new_node.next = active_node;
+			active_node.previous = new_node;
+			active_node = new_node;
+			console.log("added to start")
+		}
+		else {
+			position = Math.round(position);
+			for (i = 0; i < position; i++){ // Progress through the list to the position to insert into
+				if (active_node.next != null){
+					active_node = active_node.next;
+				}
+			}
+			if (active_node.next == null && active_node.previous != null){
+				active_node.previous.next = new_node;
+				new_node.previous = active_node.previous;
+				active_node.previous = new_node;
+				new_node.next = active_node;
+				active_node = new_node;
+				console.log("added to second last");
+			}
+			else if (active_node.next != null && active_node.previous != null){
+				active_node.previous.next = new_node;
+				new_node.previous = active_node.previous;
+				active_node.previous = new_node;
+				new_node.next = active_node;
+				active_node = new_node;
+				console.log("added to middle");
+			}
+	}
+					
 	}
 	else { // Else there is no list, create one.
 		lastnode = new_node;
