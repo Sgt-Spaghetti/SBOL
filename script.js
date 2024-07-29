@@ -14,7 +14,7 @@ c.height = c.clientHeight;
 c.ondrop = drop; // Allow drag and drop functionality
 c.ondragover = allowDrop;
 // Create a button for every glyph in the system
-const files = ['promoter.svg', 'ribosome-entry-site.svg', 'cds.svg', 'polypeptide-region.svg', 'terminator.svg', 'engineered-region.svg', 'dna-stability-element.svg', 'aptamer.svg', 'assembly-scar.svg', 'association.svg', 'blunt-restriction-site.svg', 'cds-arrow.svg', 'cds_blue.svg', 'cds_green.svg', 'cds_pink.svg', 'cds_red.svg', 'cds_yellow.svg', 'chromosomal-locus.svg', 'circular-plasmid.svg', 'complex-sbgn.svg', 'composite.svg', 'control.svg', 'degradation.svg', 'dissociation.svg', 'dsNA.svg', 'five-prime-overhang.svg', 'five-prime-sticky-restriction-site.svg', 'generic-sbgn.svg', 'halfround-rectangle.svg', 'inert-dna-spacer.svg', 'inhibition.svg', 'insulator.svg', 'intron.svg', 'location-dna-no-top.svg', 'location-dna.svg', 'location-protein-no-top.svg', 'location-protein.svg', 'location-rna-no-top.svg', 'location-rna.svg', 'macromolecule.svg', 'na-sbgn.svg', 'ncrna.svg', 'no-glyph-assigned.svg', 'nuclease-site.svg', 'omitted-detail.svg', 'operator.svg', 'origin-of-replication.svg', 'origin-of-transfer.svg', 'polyA.svg', 'primer-binding-site.svg', 'process.svg', 'protease-site.svg', 'protein-stability-element.svg', 'protein.svg', 'replacement-glyph.svg', 'ribonuclease-site.svg', 'rna-stability-element.svg', 'signature.svg', 'simple-chemical-circle.svg', 'simple-chemical-hexagon.svg', 'simple-chemical-pentagon.svg', 'simple-chemical-triangle.svg', 'specific-recombination-site.svg', 'ssNA.svg', 'stimulation.svg', 'three-prime-overhang.svg', 'three-prime-sticky-restriction-site.svg', 'transcription-end.svg', 'translation-end.svg', 'unspecified-glyph.svg']; // All the images in use in the program, in the order of appearance.
+const files = ['promoter.svg', 'ribosome-entry-site.svg', 'cds.svg', 'polypeptide-region.svg', 'terminator.svg', 'engineered-region.svg', 'dna-stability-element.svg', 'aptamer.svg', 'assembly-scar.svg', 'association.svg', 'blunt-restriction-site.svg', 'cds-arrow.svg', 'cds_blue.svg', 'cds_green.svg', 'cds_pink.svg', 'cds_red.svg', 'cds_yellow.svg', 'chromosomal-locus.svg', 'circular-plasmid.svg', 'complex-sbgn.svg', 'composite.svg', 'control.svg', 'degradation.svg', 'dissociation.svg', 'dsNA.svg', 'five-prime-overhang.svg', 'five-prime-sticky-restriction-site.svg', 'generic-sbgn.svg', 'halfround-rectangle.svg', 'inert-dna-spacer.svg', 'inhibition.svg', 'insulator.svg', 'intron.svg', 'location-dna-no-top.svg', 'location-dna.svg', 'location-protein-no-top.svg', 'location-protein.svg', 'location-rna-no-top.svg', 'location-rna.svg', 'macromolecule.svg', 'na-sbgn.svg', 'ncrna.svg', 'no-glyph-assigned.svg', 'nuclease-site.svg', 'omitted-detail.svg', 'operator.svg', 'origin-of-replication.svg', 'origin-of-transfer.svg', 'polyA.svg', 'primer-binding-site.svg', 'process.svg', 'promoter_rev.svg', 'protease-site.svg', 'protein-stability-element.svg', 'protein.svg', 'replacement-glyph.svg', 'ribonuclease-site.svg', 'rna-stability-element.svg', 'signature.svg', 'simple-chemical-circle.svg', 'simple-chemical-hexagon.svg', 'simple-chemical-pentagon.svg', 'simple-chemical-triangle.svg', 'specific-recombination-site.svg', 'ssNA.svg', 'stimulation.svg', 'terminator_rev.svg', 'three-prime-overhang.svg', 'three-prime-sticky-restriction-site.svg', 'transcription-end.svg', 'translation-end.svg', 'unspecified-glyph.svg']; // All the images in use in the program, in the order of appearance.
 
 // This maps each button to a "quick add" menu, with preset options for quickly adding the symbol with the labels listed below
 const hashtable = new Map([
@@ -67,13 +67,14 @@ const hashtable = new Map([
 ['primer-binding-site.svg',['rbcl']],
 ['process.svg',['rbcl']],
 ['promoter.svg',['petA', 'chlB', 'tufA', 'petB', 'chlL', 'psbZ', 'psA-3', 'psbB', 'psbE', 'psbF', 'psaB', 'atpH', 'tscA', 'atpB', 'ycf1', 'psbD', 'ycf2', 'atpA', 'psbA', 'rbcL', 'WendyA', 'rrns-core', 'rrns-preRNA', 'rrnS-full', 'stuffer', 'trnE2', 'trnF', 'trnI2', 'trnL2', 'trnR1', 'trnT', 'trnW', 'SPLc25', 'SPLc19', 'SPLc47', 'SPLc3', 'PpsbA2-cyano', 'SPLc115']],
+['promoter_rev.svg',['petA', 'chlB', 'tufA', 'petB', 'chlL', 'psbZ', 'psA-3', 'psbB', 'psbE', 'psbF', 'psaB', 'atpH', 'tscA', 'atpB', 'ycf1', 'psbD', 'ycf2', 'atpA', 'psbA', 'rbcL', 'WendyA', 'rrns-core', 'rrns-preRNA', 'rrnS-full', 'stuffer', 'trnE2', 'trnF', 'trnI2', 'trnL2', 'trnR1', 'trnT', 'trnW', 'SPLc25', 'SPLc19', 'SPLc47', 'SPLc3', 'PpsbA2-cyano', 'SPLc115']],
 ['protease-site.svg',['rbcl']],
 ['protein-stability-element.svg',['rbcl']],
 ['protein.svg',['rbcl']],
 ['replacement-glyph.svg',['rbcl']],
 ['ribonuclease-site.svg',['rbcl']],
 ['ribosome-entry-site.svg',['rbcl']],
-['rna-stability-element.svg',['rbcl']],
+['rna-stability-element.svg',['rbcL', 'atpB', 'petA', 'petD', 'petD+trnR', 'SynPetD', 'Empty']],
 ['signature.svg',['rbcl']],
 ['simple-chemical-circle.svg',['rbcl']],
 ['simple-chemical-hexagon.svg',['rbcl']],
@@ -82,7 +83,8 @@ const hashtable = new Map([
 ['specific-recombination-site.svg',['rbcl']],
 ['ssNA.svg',['rbcl']],
 ['stimulation.svg',['rbcl']],
-['terminator.svg',['rbcl']],
+['terminator.svg',['rbcL', 'atpB', 'petA', 'petD', 'petD+trnR', 'SynPetD', 'Empty']],
+['terminator_rev.svg',['rbcL', 'atpB', 'petA', 'petD', 'petD+trnR', 'SynPetD', 'Empty']],
 ['three-prime-overhang.svg',['rbcl']],
 ['three-prime-sticky-restriction-site.svg',['rbcl']],
 ['transcription-end.svg',['rbcl']],
@@ -108,12 +110,13 @@ for (file in files){ // Create a button for each symbol
 }
 
 class Node { // Linked list implementation
-	constructor (prev, next, img, text, text_centered){
+	constructor (prev, next, img, text, text_centered, text_above){
 	this.next=next;
 	this.previous=prev;
 	this.image=img;
 	this.text = text;
 	this.text_centered = text_centered;
+	this.text_above = text_above;
 	this.text_size = 16;
 }
 	draw(canvas, context, posx, scale, height_offset, width_offset){ // Draw the symbol on the line in the middle of the canvas, in a chain
@@ -122,6 +125,10 @@ class Node { // Linked list implementation
 			context.font = "italic "+this.text_size+"px Georgia";
 			context.fillText(this.text, (posx+this.image.width+10+width_offset-(context.measureText(this.text).width)/2), c.height/2+this.text_size/2+32-height_offset);
 		}
+		if (this.text_above != null){ // Draw text, at a given size, either centered or 32px below the symbol (to avoid large glyphs)
+					context.font = "italic "+this.text_size+"px Georgia";
+					context.fillText(this.text_above, (posx+this.image.width+10+width_offset-(context.measureText(this.text_above).width)/2), c.height/2+this.text_size/2-36-height_offset);
+				}
 		if (this.text_centered != null){
 			context.font = "italic "+this.text_size+"px Geneva";
 			let lineHeight = context.measureText('M').width - 3; // Approximation
@@ -170,7 +177,7 @@ function add_part(canvas, context, const_width, scale, height_offset, width_offs
 		update_display(canvas, context, const_width, scale, height_offset, width_offset); // DO NOT TOUCH
 	} // DO NOT TOUCH
 
-	var new_node = new Node(null,null, img, null, null); // add it to the linked list
+	var new_node = new Node(null,null, img, null, null, null); // add it to the linked list
 
 	if (lastnode != null){ // Adds to the end of the list by default
 		new_node.previous = lastnode;
@@ -215,6 +222,14 @@ function add_text(canvas, context, const_width, scale, height_offset, width_offs
 	if (active_node != null){ // If there is a node...
 		let text = document.getElementById("desc").value; // Steal the contents of the form
 		active_node.text = text; // Set it as the nodes text
+		update_display(canvas, context, const_width, scale, height_offset, width_offset);
+	} // Let it sort itself out (draws through its own draw function
+}
+function add_text_above(canvas, context, const_width, scale, height_offset, width_offset){
+	if (active_node != null){
+		let a_text = document.getElementById("desc").value; 
+		console.log(a_text);
+		active_node.text_above = a_text;
 		update_display(canvas, context, const_width, scale, height_offset, width_offset);
 	} // Let it sort itself out (draws through its own draw function
 }
@@ -330,7 +345,7 @@ function insert_part(canvas, context, const_width, scale, height_offset, width_o
 		update_display(canvas, context, const_width, scale, height_offset, width_offset);
 		active_node = new_node;
 	} // DO NOT TOUCH
-	var new_node = new Node(null,null, img, null, null); // add it to the linked list
+	var new_node = new Node(null,null, img, null, null, null); // add it to the linked list
 
 
 	if (lastnode != null){ // If there is a node to add to....
