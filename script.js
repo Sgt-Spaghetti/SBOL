@@ -66,7 +66,7 @@ const hashtable = new Map([
 ['polypeptide-region.svg',['rbcl']],
 ['primer-binding-site.svg',['rbcl']],
 ['process.svg',['rbcl']],
-['promoter.svg',['rbcl', 'aadA']],
+['promoter.svg',['petA', 'chlB', 'tufA', 'petB', 'chlL', 'psbZ', 'psA-3', 'psbB', 'psbE', 'psbF', 'psaB', 'atpH', 'tscA', 'atpB', 'ycf1', 'psbD', 'ycf2', 'atpA', 'psbA', 'rbcL', 'WendyA', 'rrns-core', 'rrns-preRNA', 'rrnS-full', 'stuffer', 'trnE2', 'trnF', 'trnI2', 'trnL2', 'trnR1', 'trnT', 'trnW', 'SPLc25', 'SPLc19', 'SPLc47', 'SPLc3', 'PpsbA2-cyano', 'SPLc115']],
 ['protease-site.svg',['rbcl']],
 ['protein-stability-element.svg',['rbcl']],
 ['protein.svg',['rbcl']],
@@ -124,7 +124,8 @@ class Node { // Linked list implementation
 		}
 		if (this.text_centered != null){
 			context.font = "italic "+this.text_size+"px Geneva";
-			context.fillText(this.text_centered, (posx+this.image.width+10+width_offset-(context.measureText(this.text_centered).width)/2), c.height/2+this.text_size/2-height_offset);
+			let lineHeight = context.measureText('M').width - 3; // Approximation
+			context.fillText(this.text_centered, (posx+this.image.width+10+width_offset-(context.measureText(this.text_centered).width)/2), (c.height/2)+(lineHeight/2)-height_offset);
 		}
 	}
 }
