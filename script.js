@@ -354,21 +354,17 @@ function insert_part(canvas, context, const_width, scale, height_offset, width_o
 			active_node = active_node.previous; // Cycle to the start
 		}
 
-		console.log(active_node);
-		console.log(position, number_of_nodes);
 		if (position >= number_of_nodes-0.5) { // If we are the last node in the list (adding to end)
 			active_node = lastnode
 			active_node.next = new_node;
 			new_node.previous = active_node;
 			active_node = new_node;
 			lastnode = active_node;
-			console.log("Added To End");
 		}
 		else if (position < 0.5) { // We are at the start, add to the begining!
 			new_node.next = active_node;
 			active_node.previous = new_node;
 			active_node = new_node;
-			console.log("added to start")
 		}
 		else {
 			position = Math.round(position);
@@ -383,7 +379,6 @@ function insert_part(canvas, context, const_width, scale, height_offset, width_o
 				active_node.previous = new_node;
 				new_node.next = active_node;
 				active_node = new_node;
-				console.log("added to second last");
 			}
 			else if (active_node.next != null && active_node.previous != null){
 				active_node.previous.next = new_node;
@@ -391,7 +386,6 @@ function insert_part(canvas, context, const_width, scale, height_offset, width_o
 				active_node.previous = new_node;
 				new_node.next = active_node;
 				active_node = new_node;
-				console.log("added to middle");
 			}
 	}
 					
@@ -429,12 +423,16 @@ window.onclick = function(event) {
 function quick_add(path, text){
 add_part(c, ctx, construct_width, 2, h_offset, w_offset, path) // add a symbol to the linked list of parts
 	if (active_node != null){ // If there is an active node
-		if (document.getElementById("quick_center_bool").checked == false){ // If the text is not centered
-			active_node.text = text; // Normally add the text
+		if (document.getElementById("quick_center_bool").checked == true){
+			active_node.text_centered = text; // Add the text centered
 		}
-		else {
-			active_node.text_centered = text; // Add the text centered.
+		if (document.getElementById("quick_above_bool").checked == true) {
+			active_node.text_above = text; // Add the text above.
 		}
+		if (document.getElementById("quick_center_bool").checked == false && document.getElementById("quick_above_bool").checked == false){
+			active_node.text = text; // Add the text below
+		}
+	
 		update_display(c, ctx, construct_width, 2, h_offset, w_offset);
 	}
 }
