@@ -99,6 +99,7 @@ for (file in files){ // Create a button for each symbol
 	btn.setAttribute("draggable","true"); // Set up drag and drop functionality
 	btn.setAttribute("ondragstart","drag(event);");
 	btn.setAttribute("oncontextmenu","openmodal("+"'"+files[file]+"'); return false;"); // Right click opens "quick add" menu, disable normal menu.
+	btn.setAttribute("title", files[file].slice(0,files[file].lastIndexOf(".")));
 	if (it < 7){ // Show the first 'n' buttons, hide the rest
 	document.getElementsByClassName("content")[0].appendChild(btn);}
 	else {
