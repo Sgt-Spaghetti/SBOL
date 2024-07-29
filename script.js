@@ -14,7 +14,7 @@ c.height = c.clientHeight;
 c.ondrop = drop; // Allow drag and drop functionality
 c.ondragover = allowDrop;
 // Create a button for every glyph in the system
-const files = ['promoter.svg', 'ribosome-entry-site.svg', 'cds.svg', 'polypeptide-region.svg', 'terminator.svg', 'engineered-region.svg', 'aptamer.svg', 'assembly-scar.svg', 'association.svg', 'blunt-restriction-site.svg', 'cds-arrow.svg', 'cds_blue.svg', 'cds_green.svg', 'cds_pink.svg', 'cds_red.svg', 'cds_yellow.svg', 'chromosomal-locus.svg', 'circular-plasmid.svg', 'complex-sbgn.svg', 'composite.svg', 'control.svg', 'degradation.svg', 'dissociation.svg', 'dna-stability-element.svg', 'dsNA.svg', 'five-prime-overhang.svg', 'five-prime-sticky-restriction-site.svg', 'generic-sbgn.svg', 'halfround-rectangle.svg', 'inert-dna-spacer.svg', 'inhibition.svg', 'insulator.svg', 'intron.svg', 'location-dna-no-top.svg', 'location-dna.svg', 'location-protein-no-top.svg', 'location-protein.svg', 'location-rna-no-top.svg', 'location-rna.svg', 'macromolecule.svg', 'na-sbgn.svg', 'ncrna.svg', 'no-glyph-assigned.svg', 'nuclease-site.svg', 'omitted-detail.svg', 'operator.svg', 'origin-of-replication.svg', 'origin-of-transfer.svg', 'polyA.svg', 'primer-binding-site.svg', 'process.svg', 'protease-site.svg', 'protein-stability-element.svg', 'protein.svg', 'replacement-glyph.svg', 'ribonuclease-site.svg', 'rna-stability-element.svg', 'signature.svg', 'simple-chemical-circle.svg', 'simple-chemical-hexagon.svg', 'simple-chemical-pentagon.svg', 'simple-chemical-triangle.svg', 'specific-recombination-site.svg', 'ssNA.svg', 'stimulation.svg', 'three-prime-overhang.svg', 'three-prime-sticky-restriction-site.svg', 'transcription-end.svg', 'translation-end.svg', 'unspecified-glyph.svg']; // All the images in use in the program, in the order of appearance.
+const files = ['promoter.svg', 'ribosome-entry-site.svg', 'cds.svg', 'polypeptide-region.svg', 'terminator.svg', 'engineered-region.svg', 'dna-stability-element.svg', 'aptamer.svg', 'assembly-scar.svg', 'association.svg', 'blunt-restriction-site.svg', 'cds-arrow.svg', 'cds_blue.svg', 'cds_green.svg', 'cds_pink.svg', 'cds_red.svg', 'cds_yellow.svg', 'chromosomal-locus.svg', 'circular-plasmid.svg', 'complex-sbgn.svg', 'composite.svg', 'control.svg', 'degradation.svg', 'dissociation.svg', 'dsNA.svg', 'five-prime-overhang.svg', 'five-prime-sticky-restriction-site.svg', 'generic-sbgn.svg', 'halfround-rectangle.svg', 'inert-dna-spacer.svg', 'inhibition.svg', 'insulator.svg', 'intron.svg', 'location-dna-no-top.svg', 'location-dna.svg', 'location-protein-no-top.svg', 'location-protein.svg', 'location-rna-no-top.svg', 'location-rna.svg', 'macromolecule.svg', 'na-sbgn.svg', 'ncrna.svg', 'no-glyph-assigned.svg', 'nuclease-site.svg', 'omitted-detail.svg', 'operator.svg', 'origin-of-replication.svg', 'origin-of-transfer.svg', 'polyA.svg', 'primer-binding-site.svg', 'process.svg', 'protease-site.svg', 'protein-stability-element.svg', 'protein.svg', 'replacement-glyph.svg', 'ribonuclease-site.svg', 'rna-stability-element.svg', 'signature.svg', 'simple-chemical-circle.svg', 'simple-chemical-hexagon.svg', 'simple-chemical-pentagon.svg', 'simple-chemical-triangle.svg', 'specific-recombination-site.svg', 'ssNA.svg', 'stimulation.svg', 'three-prime-overhang.svg', 'three-prime-sticky-restriction-site.svg', 'transcription-end.svg', 'translation-end.svg', 'unspecified-glyph.svg']; // All the images in use in the program, in the order of appearance.
 
 // This maps each button to a "quick add" menu, with preset options for quickly adding the symbol with the labels listed below
 const hashtable = new Map([
@@ -36,7 +36,7 @@ const hashtable = new Map([
 ['control.svg',['rbcl']],
 ['degradation.svg',['rbcl']],
 ['dissociation.svg',['rbcl']],
-['dna-stability-element.svg',['rbcl']],
+['dna-stability-element.svg',['IEE02', 'IEE08', 'IEE10', 'IEE12', 'IEE15', 'IEE15', 'IEE17', 'IEE24', 'IEE34', 'IEE35', 'IEE36', 'IEE37', 'IEE39', 'IEE40']], // IEEs
 ['dsNA.svg',['rbcl']],
 ['engineered-region.svg',['rbcl']],
 ['five-prime-overhang.svg',['rbcl']],
@@ -90,7 +90,7 @@ const hashtable = new Map([
 ['unspecified-glyph.svg',['rbcl']],
 ]); // I know its long, sorry
 
-let it= 0; // Ugly iterable, used to only show the first 6, "commonly used" symbols and hide the rest
+let it= 0; // Ugly iterable, used to only show the first 'n', "commonly used" symbols and hide the rest
 for (file in files){ // Create a button for each symbol
 	var btn = document.createElement("button");
 	btn.type = "button";
@@ -99,7 +99,7 @@ for (file in files){ // Create a button for each symbol
 	btn.setAttribute("draggable","true"); // Set up drag and drop functionality
 	btn.setAttribute("ondragstart","drag(event);");
 	btn.setAttribute("oncontextmenu","openmodal("+"'"+files[file]+"'); return false;"); // Right click opens "quick add" menu, disable normal menu.
-	if (it < 6){ // Show the first 6 buttons, hide the rest
+	if (it < 7){ // Show the first 'n' buttons, hide the rest
 	document.getElementsByClassName("content")[0].appendChild(btn);}
 	else {
 	document.getElementsByClassName("hidden")[0].appendChild(btn);}
