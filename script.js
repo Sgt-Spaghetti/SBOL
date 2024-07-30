@@ -73,7 +73,7 @@ const hashtable = new Map([
 ['protein.svg',['rbcl']],
 ['replacement-glyph.svg',['rbcl']],
 ['ribonuclease-site.svg',['rbcl']],
-['ribosome-entry-site.svg',['rbcl']],
+['ribosome-entry-site.svg',['psaA','atpA', 'atpB', 'psbA', 'psbB', 'psbD', 'chlL','rbcL', 'tufa', 'petA', 'petB', 'petD']],
 ['rna-stability-element.svg',['rbcL', 'atpB', 'petA', 'petD', 'petD+trnR', 'SynPetD', 'Empty']],
 ['signature.svg',['rbcl']],
 ['simple-chemical-circle.svg',['rbcl']],
