@@ -32,13 +32,15 @@
 		<button type="button" onclick="big_text(c, ctx, construct_width, scale_f, h_offset, w_offset)">Increase Text Size</button>
 		<button type="button" onclick="small_text(c, ctx, construct_width, scale_f, h_offset, w_offset)">Decrease Text Size</button>
 		<button type="button" onclick="delete_part(c, ctx, construct_width, scale_f, h_offset, w_offset)">Delete</button>
+		<button type="button" onclick="open_backbone_modal()">Backbone Annotation</button>
 			</div>
 <!--
 		<a id="download">
 		<button type="button" onclick="Download_Image()">Download</button>
 		</a>
-//-->		<div id="MyModal" class="modal">
-				<div class="modal-content">
+//-->		
+		<div id="MyModal" class="modal">
+			<div class="modal-content">
 				<div class="modal-header">
 					<span class="close" onclick="modal.style.display = 'none';">&times;</span> 
 					<h2>Quick Add</h2>
@@ -55,7 +57,20 @@
   						<label for="quick_above_bool">Text is above</label>
 					</form>
 				</div>
+			</div>
+		</div>
+
+		<div id="MyModal-backbone" class="backbone-modal">
+			<div class="backbone-modal-content">
+				<div class="backbone-modal-header">
+					<span class="close" onclick="backbone_modal.style.display = 'none';">&times;</span> 
+					<h2>Options</h2>
 				</div>
+				<div class="backbone-modal-body">
+				</div>
+				<div class="backbone-modal-footer">
+				</div>
+			</div>
 		</div>
 
 		<script src="script.js"></script>

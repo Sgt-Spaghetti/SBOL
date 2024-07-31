@@ -78,3 +78,30 @@ color: white;}
 .hidden {
 display: none;
 }
+.backbone-modal{
+display:none;
+	z-index: 1;
+	overflow: auto;
+	left: 0;
+	top:0;
+	height: 100%;
+	width: 100%;
+	position:fixed;
+	background-color: rgba(0,0,0,0.4);
+}
+.backbone-modal-content {
+	position:fixed;
+bottom: 0;
+  background-color: #fefefe;
+	width:100%;
+}
+.backbone-modal-header {padding: 2px 16px;
+	float: center;
+	background-color: #8785A2;
+color: white;}
+.backbone-modal-body {padding: 2px 16px;}
+.backbone-modal-footer {padding: 2px 0px;
+background-color: #8785A2;
+height: 28px;
+color: white;}
+
