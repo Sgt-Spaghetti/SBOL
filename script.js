@@ -126,11 +126,11 @@ class Node { // Linked list implementation
 		if (this.backbone == false) {
 			context.drawImage(this.image, posx+10+width_offset,(canvas.height/2)-((this.image.height*scale)/2)-height_offset, this.image.width*scale,this.image.height*scale); // Draw the symbol onto the canvas. 10px offset from side, in the middle.
 			if (this.text != null){ // Draw text, at a given size, either centered or 32px below the symbol (to avoid large glyphs)
-				context.font = "italic "+this.text_size+"px Georgia";
+				context.font = "italic "+this.text_size+"px Geneva";
 				context.fillText(this.text, (posx+this.image.width+10+width_offset-(context.measureText(this.text).width)/2), c.height/2+this.text_size/2+32-height_offset);
 			}
 			if (this.text_above != null){ // Draw text, at a given size, either centered or 32px below the symbol (to avoid large glyphs)
-						context.font = "italic "+this.text_size+"px Georgia";
+						context.font = "italic "+this.text_size+"px Geneva";
 						context.fillText(this.text_above, (posx+this.image.width+10+width_offset-(context.measureText(this.text_above).width)/2), c.height/2+this.text_size/2-36-height_offset);
 					}
 			if (this.text_centered != null){
