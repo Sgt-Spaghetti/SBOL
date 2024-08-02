@@ -16,7 +16,7 @@ c.ondrop = drop; // Allow drag and drop functionality
 c.ondragover = allowDrop;
 const backbone_options = ["AmpR", "KanR", "TetR"];
 // Create a button for every glyph in the system
-const files = ['promoter.svg', 'ribosome-entry-site.svg', 'cds.svg', 'polypeptide-region.svg', 'terminator.svg', 'engineered-region.svg', 'dna-stability-element.svg', 'aptamer.svg', 'assembly-scar.svg', 'association.svg', 'blunt-restriction-site.svg', 'cds-arrow.svg', 'cds_blue.svg', 'cds_green.svg', 'cds_pink.svg', 'cds_red.svg', 'cds_yellow.svg', 'chromosomal-locus.svg', 'circular-plasmid.svg', 'complex-sbgn.svg', 'composite.svg', 'control.svg', 'degradation.svg', 'dissociation.svg', 'dsNA.svg', 'five-prime-overhang.svg', 'five-prime-sticky-restriction-site.svg', 'generic-sbgn.svg', 'halfround-rectangle.svg', 'inert-dna-spacer.svg', 'inhibition.svg', 'insulator.svg', 'intron.svg', 'location-dna-no-top.svg', 'location-dna.svg', 'location-protein-no-top.svg', 'location-protein.svg', 'location-rna-no-top.svg', 'location-rna.svg', 'macromolecule.svg', 'na-sbgn.svg', 'ncrna.svg', 'no-glyph-assigned.svg', 'nuclease-site.svg', 'omitted-detail.svg', 'operator.svg', 'origin-of-replication.svg', 'origin-of-transfer.svg', 'polyA.svg', 'primer-binding-site.svg', 'process.svg', 'promoter_rev.svg', 'protease-site.svg', 'protein-stability-element.svg', 'protein.svg', 'replacement-glyph.svg', 'ribonuclease-site.svg', 'rna-stability-element.svg', 'signature.svg', 'simple-chemical-circle.svg', 'simple-chemical-hexagon.svg', 'simple-chemical-pentagon.svg', 'simple-chemical-triangle.svg', 'specific-recombination-site.svg', 'ssNA.svg', 'stimulation.svg', 'terminator_rev.svg', 'three-prime-overhang.svg', 'three-prime-sticky-restriction-site.svg', 'transcription-end.svg', 'translation-end.svg', 'unspecified-glyph.svg']; // All the images in use in the program, in the order of appearance.
+const files = ['promoter.svg', 'ribosome-entry-site.svg', 'cds.svg', 'polypeptide-region.svg', 'terminator.svg', 'engineered-region.svg', 'IEE.svg', 'aptamer.svg', 'assembly-scar.svg', 'association.svg', 'blunt-restriction-site.svg', 'cds-arrow.svg', 'cds_blue.svg', 'cds_green.svg', 'cds_pink.svg', 'cds_red.svg', 'cds_yellow.svg', 'chromosomal-locus.svg', 'circular-plasmid.svg', 'complex-sbgn.svg', 'composite.svg', 'control.svg', 'degradation.svg', 'dissociation.svg', 'dna-stability-element.svg', 'dsNA.svg', 'five-prime-overhang.svg', 'five-prime-sticky-restriction-site.svg', 'generic-sbgn.svg', 'halfround-rectangle.svg', 'inert-dna-spacer.svg', 'inhibition.svg', 'insulator.svg', 'intron.svg', 'location-dna-no-top.svg', 'location-dna.svg', 'location-protein-no-top.svg', 'location-protein.svg', 'location-rna-no-top.svg', 'location-rna.svg', 'macromolecule.svg', 'na-sbgn.svg', 'ncrna.svg', 'no-glyph-assigned.svg', 'nuclease-site.svg', 'omitted-detail.svg', 'operator.svg', 'origin-of-replication.svg', 'origin-of-transfer.svg', 'polyA.svg', 'primer-binding-site.svg', 'process.svg', 'promoter_rev.svg', 'protease-site.svg', 'protein-stability-element.svg', 'protein.svg', 'replacement-glyph.svg', 'ribonuclease-site.svg', 'rna-stability-element.svg', 'signature.svg', 'simple-chemical-circle.svg', 'simple-chemical-hexagon.svg', 'simple-chemical-pentagon.svg', 'simple-chemical-triangle.svg', 'specific-recombination-site.svg', 'ssNA.svg', 'stimulation.svg', 'terminator_rev.svg', 'three-prime-overhang.svg', 'three-prime-sticky-restriction-site.svg', 'transcription-end.svg', 'translation-end.svg', 'unspecified-glyph.svg']; // All the images in use in the program, in the order of appearance.
 
 // This maps each button to a "quick add" menu, with preset options for quickly adding the symbol with the labels listed below
 const hashtable = new Map([
@@ -25,12 +25,12 @@ const hashtable = new Map([
 ['association.svg',['rbcl']],
 ['blunt-restriction-site.svg',['rbcl']],
 ['cds-arrow.svg',['rbcl']],
-['cds.svg',['rbcl']],
-['cds_blue.svg',['rbcl']],
-['cds_green.svg',['rbcl']],
-['cds_pink.svg',['rbcl']],
-['cds_red.svg',['rbcl']],
-['cds_yellow.svg',['rbcl']],
+['cds.svg',['aadA', 'codA', 'codA-aadA', 'ptxD', 'lucCP', 'nluc', 'nluc', 'mVenus']],
+['cds_blue.svg',['aadA', 'codA', 'codA-aadA', 'ptxD', 'lucCP', 'nluc', 'nluc', 'mVenus']],
+['cds_green.svg',['aadA', 'codA', 'codA-aadA', 'ptxD', 'lucCP', 'nluc', 'nluc', 'mVenus']],
+['cds_pink.svg',['aadA', 'codA', 'codA-aadA', 'ptxD', 'lucCP', 'nluc', 'nluc', 'mVenus']],
+['cds_red.svg',['aadA', 'codA', 'codA-aadA', 'ptxD', 'lucCP', 'nluc', 'nluc', 'mVenus']],
+['cds_yellow.svg',['aadA', 'codA', 'codA-aadA', 'ptxD', 'lucCP', 'nluc', 'nluc', 'mVenus']],
 ['chromosomal-locus.svg',['rbcl']],
 ['circular-plasmid.svg',['rbcl']],
 ['complex-sbgn.svg',['rbcl']],
@@ -45,6 +45,7 @@ const hashtable = new Map([
 ['five-prime-sticky-restriction-site.svg',['rbcl']],
 ['generic-sbgn.svg',['rbcl']],
 ['halfround-rectangle.svg',['rbcl']],
+['IEE.svg', ['IEE02', 'IEE08', 'IEE10', 'IEE12', 'IEE15', 'IEE15', 'IEE17', 'IEE24', 'IEE34', 'IEE35', 'IEE36', 'IEE37', 'IEE39', 'IEE40']],
 ['inert-dna-spacer.svg',['rbcl']],
 ['inhibition.svg',['rbcl']],
 ['insulator.svg',['rbcl']],

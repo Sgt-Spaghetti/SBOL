@@ -10,6 +10,9 @@
    id="svg2"
    inkscape:version="0.91 r13725"
    sodipodi:docname="engineered-region.svg"
+   inkscape:export-filename="engineered-region.svg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +57,7 @@
         stroke-linejoin: round;
         fill: none
       }]]></style></defs><path
-     d="m 2.4999973,12.499997 v 20 H 42.499997 v -20 z"
+     d="M 2.0956242,17.270624 V 27.72937 H 42.90437 V 17.270624 Z"
      id="path8"
      inkscape:connector-curvature="0"
-     style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round" /></svg>
+     style="fill:none;stroke:#000000;stroke-width:2.19125;stroke-linecap:round;stroke-linejoin:round" /></svg>
