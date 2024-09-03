@@ -14,7 +14,7 @@ var number_of_nodes = 0; // Now many nodes compose the construct
 c.height = c.clientHeight;
 c.ondrop = drop; // Allow drag and drop functionality
 c.ondragover = allowDrop;
-const backbone_options = ["AmpR", "KanR", "TetR"];
+const backbone_options = ["AmpR", "KanR", "TetR", "CarbR", "ChlorR", "SpecR", "StrepR", "ZeoR"];
 // Create a button for every glyph in the system
 const files = ['promoter.svg', 'ribosome-entry-site.svg', 'cds.svg', 'polypeptide-region.svg', 'terminator.svg', 'engineered-region.svg', 'IEE.svg', 'aptamer.svg', 'assembly-scar.svg', 'association.svg', 'blunt-restriction-site.svg', 'cds-arrow.svg', 'cds_blue.svg', 'cds_green.svg', 'cds_pink.svg', 'cds_red.svg', 'cds_yellow.svg', 'chromosomal-locus.svg', 'circular-plasmid.svg', 'complex-sbgn.svg', 'composite.svg', 'control.svg', 'degradation.svg', 'dissociation.svg', 'dna-stability-element.svg', 'dsNA.svg', 'five-prime-overhang.svg', 'five-prime-sticky-restriction-site.svg', 'generic-sbgn.svg', 'halfround-rectangle.svg', 'inert-dna-spacer.svg', 'inhibition.svg', 'insulator.svg', 'intron.svg', 'location-dna-no-top.svg', 'location-dna.svg', 'location-protein-no-top.svg', 'location-protein.svg', 'location-rna-no-top.svg', 'location-rna.svg', 'macromolecule.svg', 'na-sbgn.svg', 'ncrna.svg', 'no-glyph-assigned.svg', 'nuclease-site.svg', 'omitted-detail.svg', 'operator.svg', 'origin-of-replication.svg', 'origin-of-transfer.svg', 'polyA.svg', 'primer-binding-site.svg', 'process.svg', 'promoter_rev.svg', 'protease-site.svg', 'protein-stability-element.svg', 'protein.svg', 'replacement-glyph.svg', 'ribonuclease-site.svg', 'rna-stability-element.svg', 'signature.svg', 'simple-chemical-circle.svg', 'simple-chemical-hexagon.svg', 'simple-chemical-pentagon.svg', 'simple-chemical-triangle.svg', 'specific-recombination-site.svg', 'ssNA.svg', 'stimulation.svg', 'terminator_rev.svg', 'three-prime-overhang.svg', 'three-prime-sticky-restriction-site.svg', 'transcription-end.svg', 'translation-end.svg', 'unspecified-glyph.svg']; // All the images in use in the program, in the order of appearance.
 
@@ -127,15 +127,15 @@ class Node { // Linked list implementation
 		if (this.backbone == false) {
 			context.drawImage(this.image, posx+10+width_offset,(canvas.height/2)-((this.image.height*scale)/2)-height_offset, this.image.width*scale,this.image.height*scale); // Draw the symbol onto the canvas. 10px offset from side, in the middle.
 			if (this.text != null){ // Draw text, at a given size, either centered or 32px below the symbol (to avoid large glyphs)
-				context.font = "italic "+this.text_size+"px Geneva";
+				context.font = "italic "+this.text_size+"px Verdana";
 				context.fillText(this.text, (posx+this.image.width+10+width_offset-(context.measureText(this.text).width)/2), c.height/2+this.text_size/2+32-height_offset);
 			}
 			if (this.text_above != null){ // Draw text, at a given size, either centered or 32px below the symbol (to avoid large glyphs)
-						context.font = "italic "+this.text_size+"px Geneva";
+						context.font = "italic "+this.text_size+"px Verdana";
 						context.fillText(this.text_above, (posx+this.image.width+10+width_offset-(context.measureText(this.text_above).width)/2), c.height/2+this.text_size/2-36-height_offset);
 					}
 			if (this.text_centered != null){
-				context.font = "italic "+this.text_size+"px Geneva";
+				context.font = "italic "+this.text_size+"px Verdana";
 				let lineHeight = context.measureText('M').width - 3; // Approximation
 				context.fillText(this.text_centered, (posx+this.image.width+10+width_offset-(context.measureText(this.text_centered).width)/2), (c.height/2)+(lineHeight/2)-height_offset);
 			}
@@ -143,7 +143,7 @@ class Node { // Linked list implementation
 		else {
 			context.drawImage(this.image, (lastnode.image.width+construct_width/2)+width_offset-(this.image.width*scale)/2,(canvas.height/2)-((this.image.height*scale)/2)+height_offset, this.image.width*scale,this.image.height*scale); // Draw the symbol onto the canvas, where the backbone is.
 			if (this.text_centered != null){
-						context.font = "italic "+this.text_size+"px Geneva";
+						context.font = "italic "+this.text_size+"px Verdana";
 						let lineHeight = context.measureText('M').width - 3; // Approximation
 						context.fillText(this.text_centered, ((construct_width+lastnode.image.width)/2)+30+width_offset-(context.measureText(this.text_centered).width)/2, (c.height/2)+(lineHeight/2)+height_offset);
 					}
